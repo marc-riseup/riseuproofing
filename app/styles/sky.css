@@ -1,0 +1,421 @@
+/* ==========================================================================
+   Sky: fixed, behind everything. Only opacity + transform are animated.
+   Enhanced Day-to-Night Coastal San Diego Atmosphere
+   ========================================================================== */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+.sky__layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+html:not(.sky-live) :is(.sky__layer:not(.sky__layer--morning), .sky__moon, .horizon--night, .horizon__windows) {
+  display: none;
+}
+
+/* 1. Morning: Coastal San Diego azure zenith + warm peach-gold horizon scattering */
+.sky__layer--morning {
+  opacity: 1;
+  background:
+    radial-gradient(70% 22% at 50% 80%, rgba(255, 244, 214, 0.52), rgba(255, 244, 214, 0) 72%),
+    linear-gradient(
+      180deg,
+      #2e9fda 0%,
+      #3fb2ea 16%,
+      #55c4f5 32%,
+      #9bdcf9 56%,
+      #d9f1fd 76%,
+      #f4f9fc 92%,
+      #f4f9fc 100%
+    );
+}
+
+/* 2. Midday: Crisp high-altitude coastal sky with delicate upper-air cirrus wisps */
+.sky__layer--midday {
+  background:
+    radial-gradient(45% 8% at 28% 18%, rgba(255, 255, 255, 0.55), transparent 75%),
+    radial-gradient(50% 7% at 72% 26%, rgba(255, 255, 255, 0.45), transparent 75%),
+    linear-gradient(180deg, #8ed3f8 0%, #c6e9fc 34%, #e9f6fe 64%, #f4f9fc 100%);
+}
+
+/* 3. Golden Hour: Warm California sunset with amber-coral horizon bloom */
+.sky__layer--golden {
+  background:
+    radial-gradient(60% 38% at 24% 76%, rgba(255, 236, 175, 0.7), rgba(255, 150, 90, 0.25) 52%, transparent 78%),
+    linear-gradient(
+      180deg,
+      #fae0b4 0%,
+      #fcc883 32%,
+      #faab6b 62%,
+      #ef8962 86%,
+      #f5b585 100%
+    );
+}
+
+/* 4. Dusk / Blue Hour: Deep cobalt twilight melting into a warm magenta-amber afterglow band */
+.sky__layer--dusk {
+  background:
+    radial-gradient(65% 24% at 20% 96%, rgba(242, 132, 92, 0.38), rgba(168, 85, 115, 0.16) 55%, transparent 78%),
+    linear-gradient(
+      180deg,
+      #07152e 0%,
+      #0f2448 34%,
+      #1a3763 62%,
+      #343358 83%,
+      #6b4358 94%,
+      #9e5a56 100%
+    );
+}
+
+/* 5. Starry Night: Astronomical midnight, Milky Way nebula band, multi-size starfield, twinkling stars & meteor */
+.sky__layer--night {
+  background:
+    radial-gradient(1.5px 1.5px at 8% 14%, rgb(255 255 255 / 0.88) 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 14% 28%, rgb(210 230 255 / 0.75) 50%, transparent 52%),
+    radial-gradient(1px 1px at 22% 9%, rgb(255 255 255 / 0.65) 50%, transparent 52%),
+    radial-gradient(1.6px 1.6px at 31% 19%, rgb(255 248 230 / 0.85) 50%, transparent 52%),
+    radial-gradient(1.1px 1.1px at 39% 34%, rgb(255 255 255 / 0.6) 50%, transparent 52%),
+    radial-gradient(1.4px 1.4px at 47% 11%, rgb(215 232 255 / 0.8) 50%, transparent 52%),
+    radial-gradient(1px 1px at 54% 26%, rgb(255 255 255 / 0.58) 50%, transparent 52%),
+    radial-gradient(1.5px 1.5px at 63% 15%, rgb(255 255 255 / 0.82) 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 71% 31%, rgb(220 236 255 / 0.72) 50%, transparent 52%),
+    radial-gradient(1px 1px at 78% 8%, rgb(255 255 255 / 0.62) 50%, transparent 52%),
+    radial-gradient(1.6px 1.6px at 85% 21%, rgb(255 245 220 / 0.85) 50%, transparent 52%),
+    radial-gradient(1.3px 1.3px at 93% 36%, rgb(255 255 255 / 0.68) 50%, transparent 52%),
+    radial-gradient(1px 1px at 11% 46%, rgb(255 255 255 / 0.48) 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 29% 52%, rgb(215 232 255 / 0.45) 50%, transparent 52%),
+    radial-gradient(1px 1px at 51% 44%, rgb(255 255 255 / 0.42) 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 76% 49%, rgb(255 255 255 / 0.46) 50%, transparent 52%),
+    radial-gradient(75% 30% at 62% 24%, rgba(72, 126, 215, 0.14), rgba(42, 82, 160, 0.05) 54%, transparent 78%),
+    linear-gradient(180deg, #020611 0%, #050d20 50%, #091834 84%, #0f2347 100%);
+}
+
+/* Twinkling constellation stars (pure opacity pulse, GPU-composited) */
+.sky__twinkle {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.sky__twinkle--a {
+  background:
+    radial-gradient(2px 2px at 18% 16%, #fff 45%, rgba(180, 215, 255, 0.4) 70%, transparent 100%),
+    radial-gradient(1.8px 1.8px at 44% 22%, #fff 45%, rgba(255, 235, 190, 0.4) 70%, transparent 100%),
+    radial-gradient(2px 2px at 68% 12%, #fff 45%, rgba(180, 215, 255, 0.4) 70%, transparent 100%),
+    radial-gradient(1.6px 1.6px at 88% 28%, #fff 45%, transparent 100%);
+}
+.sky__twinkle--b {
+  background:
+    radial-gradient(1.8px 1.8px at 26% 32%, #fff 45%, rgba(180, 215, 255, 0.38) 70%, transparent 100%),
+    radial-gradient(2.2px 2.2px at 57% 18%, #fff 45%, rgba(200, 225, 255, 0.45) 70%, transparent 100%),
+    radial-gradient(1.8px 1.8px at 74% 38%, #fff 45%, rgba(255, 240, 200, 0.4) 70%, transparent 100%),
+    radial-gradient(1.6px 1.6px at 9% 35%, #fff 45%, transparent 100%);
+}
+html.sky-live[data-chrome-tone='dark'] .sky__twinkle--a {
+  animation: twinkle 4.2s var(--ease-io) infinite alternate;
+}
+html.sky-live[data-chrome-tone='dark'] .sky__twinkle--b {
+  animation: twinkle 5.8s var(--ease-io) -2.4s infinite alternate;
+}
+@keyframes twinkle {
+  0% {
+    opacity: 0.22;
+  }
+  100% {
+    opacity: 0.95;
+  }
+}
+
+/* Occasional shooting star / meteor streak across upper night sky */
+.sky__meteor {
+  position: absolute;
+  top: 14%;
+  left: 68%;
+  width: 110px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(185, 220, 255, 0.45) 45%, transparent 100%);
+  transform: rotate(-24deg) translate3d(0, 0, 0);
+  opacity: 0;
+}
+html.sky-live[data-chrome-tone='dark'] .sky__meteor {
+  animation: meteor 14s linear 3s infinite;
+}
+@keyframes meteor {
+  0%,
+  91%,
+  100% {
+    opacity: 0;
+    transform: rotate(-24deg) translate3d(60px, 0, 0) scaleX(0.3);
+  }
+  93% {
+    opacity: 0.9;
+    transform: rotate(-24deg) translate3d(0, 0, 0) scaleX(1);
+  }
+  96% {
+    opacity: 0;
+    transform: rotate(-24deg) translate3d(-240px, 0, 0) scaleX(0.6);
+  }
+}
+
+/* Sun / moon: one traveller, two bodies cross-faded */
+.sky__orb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform: translate3d(82vw, 16vh, 0);
+  will-change: transform;
+}
+.sky__sun,
+.sky__moon {
+  position: absolute;
+  left: -18vmax;
+  top: -18vmax;
+  width: 36vmax;
+  height: 36vmax;
+  border-radius: 50%;
+  will-change: opacity;
+}
+.sky__sun {
+  background: radial-gradient(
+    circle,
+    rgb(255 251 236 / 0.86) 0%,
+    rgb(255 241 204 / 0.46) 6%,
+    rgb(255 230 172 / 0.18) 20%,
+    rgb(255 220 152 / 0.06) 38%,
+    transparent 58%
+  );
+}
+.sky__sun-corona {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(110px, 12vw, 180px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 248, 220, 0.45) 0%,
+    rgba(255, 224, 150, 0.22) 48%,
+    rgba(255, 200, 110, 0) 72%
+  );
+}
+.sky__sun-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(58px, 6.2vw, 98px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    #fffef8 0%,
+    #fff7da 44%,
+    rgb(255 238 182 / 0.66) 62%,
+    rgb(255 232 170 / 0) 76%
+  );
+}
+
+.sky__moon {
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    rgb(205 224 255 / 0.24) 0%,
+    rgb(155 192 255 / 0.1) 7%,
+    rgb(115 162 248 / 0.04) 20%,
+    transparent 38%
+  );
+}
+.sky__moon-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(72px, 8.5vw, 128px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(210, 228, 255, 0.28) 0%,
+    rgba(165, 200, 255, 0.12) 52%,
+    transparent 74%
+  );
+}
+.sky__moon-disc {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(22px, 3.6vw, 50px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle at 34% 36%, rgb(255 255 255 / 0) 0 10%, rgb(168 180 205 / 0.38) 11% 16%, transparent 17%),
+    radial-gradient(circle at 62% 62%, rgb(168 180 205 / 0.32) 0 10%, transparent 11%),
+    radial-gradient(circle at 28% 68%, rgb(175 188 212 / 0.26) 0 7%, transparent 8%),
+    radial-gradient(circle at 38% 38%, #ffffff 0%, #eef3fc 54%, #c8d4ea 100%);
+  box-shadow:
+    inset -3px -3px 6px rgba(130, 150, 185, 0.45),
+    0 0 26px 7px rgb(205 222 255 / 0.3),
+    0 0 84px 22px rgb(145 180 255 / 0.15);
+}
+
+/* Clouds: multi-lobe soft shapes, two depths, 64–120s drift loops */
+.sky__clouds {
+  position: absolute;
+  inset: 0;
+}
+.cloud {
+  position: absolute;
+  left: 0;
+  display: block;
+  background:
+    radial-gradient(closest-side at 28% 60%, rgba(255, 255, 255, 0.96), rgb(255 255 255 / 0)),
+    radial-gradient(closest-side at 52% 42%, rgba(255, 255, 255, 0.92), rgb(255 255 255 / 0)),
+    radial-gradient(closest-side at 74% 62%, rgba(255, 255, 255, 0.88), rgb(255 255 255 / 0)),
+    radial-gradient(closest-side at 50% 76%, rgba(255, 255, 255, 0.82), rgb(255 255 255 / 0));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cloud {
+    animation: drift linear infinite;
+  }
+  html[data-chrome-tone='dark'] .cloud {
+    animation-play-state: paused;
+  }
+}
+.cloud--far {
+  aspect-ratio: 3;
+}
+.cloud--near {
+  aspect-ratio: 2.6;
+}
+.cloud--f1 {
+  top: 6vh;
+  width: clamp(220px, 24vw, 420px);
+  opacity: 0.42;
+  transform: translateX(-2.5vw);
+  animation-duration: 120s;
+  animation-delay: -30s;
+}
+.cloud--f2 {
+  top: 23vh;
+  width: clamp(180px, 18vw, 340px);
+  opacity: 0.34;
+  transform: translateX(74.5vw);
+  animation-duration: 110s;
+  animation-delay: -84s;
+}
+.cloud--f3 {
+  top: 39vh;
+  width: clamp(200px, 20vw, 360px);
+  opacity: 0.3;
+  transform: translateX(35vw);
+  animation-duration: 116s;
+  animation-delay: -58s;
+}
+.cloud--n1 {
+  top: 11vh;
+  width: clamp(300px, 36vw, 640px);
+  opacity: 0.56;
+  transform: translateX(-17.5vw);
+  animation-duration: 80s;
+  animation-delay: -12s;
+}
+.cloud--n2 {
+  top: 48vh;
+  width: clamp(260px, 30vw, 560px);
+  opacity: 0.46;
+  transform: translateX(53.75vw);
+  animation-duration: 64s;
+  animation-delay: -40s;
+}
+@keyframes drift {
+  from {
+    transform: translate3d(-40vw, 0, 0);
+  }
+  to {
+    transform: translate3d(110vw, 0, 0);
+  }
+}
+
+/* Horizon: San Diego rooftops and palms in 3 depth layers + glowing neighborhood windows */
+.sky__horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(64px, 7.2vw, 108px);
+}
+.horizon__layer {
+  position: absolute;
+  inset: 0 -200px 0 -40px;
+  will-change: transform;
+}
+.horizon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.horizon__layer--back .horizon--day {
+  fill: rgb(14 92 140 / 0.06);
+}
+.horizon__layer--mid .horizon--day {
+  fill: rgb(14 92 140 / 0.09);
+}
+.horizon__layer--front .horizon--day {
+  fill: rgb(11 27 43 / 0.14);
+}
+.horizon--night {
+  opacity: 0;
+}
+.horizon__layer--back .horizon--night {
+  fill: #0d1d3a;
+}
+.horizon__layer--mid .horizon--night {
+  fill: #08142b;
+}
+.horizon__layer--front .horizon--night {
+  fill: #030916;
+}
+.horizon__windows {
+  opacity: 0;
+  will-change: opacity;
+}
+.horizon__window {
+  fill: #ffd074;
+  stroke: rgb(255 190 84 / 0.42);
+  stroke-width: 3.5px;
+  paint-order: stroke fill;
+}
+.horizon__window--mid {
+  fill: #ffbe5c;
+  stroke: rgb(255 185 80 / 0.34);
+  stroke-width: 2.5px;
+  paint-order: stroke fill;
+}
+
+/* Page progress (2px sun-yellow) */
+.progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 60;
+  height: 2px;
+  background: var(--sun);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}

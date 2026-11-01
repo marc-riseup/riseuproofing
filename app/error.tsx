@@ -10,7 +10,7 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="min-h-screen flex items-center justify-center px-5">
+    <div className="site-page-shell min-h-screen flex items-center justify-center px-5">
       <div className="text-center max-w-md">
         <p className="typo-display text-brand-error mb-4">Oops</p>
         <h1 className="typo-h1 text-brand-navy mb-3">Something went wrong</h1>

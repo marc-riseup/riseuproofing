@@ -1,0 +1,847 @@
+/* ==========================================================================
+   Scenes: sticky stage (zero CLS), live WebGL canvas in a slot, Riseup 2.0 Glass HUD panels
+   ========================================================================== */
+.scene-track {
+  position: relative;
+  height: calc(100svh + var(--distance) * 100vh);
+}
+.scene-stage {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 100svh;
+  padding-top: calc(var(--nav-h-condensed) + 20px);
+  padding-bottom: 20px;
+  overflow: hidden;
+}
+.scene-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 60fr) minmax(0, 40fr);
+  align-items: center;
+  gap: clamp(24px, 3vw, 48px);
+}
+.scene-layout--audit {
+  grid-template-columns: minmax(0, 62fr) minmax(0, 38fr);
+}
+
+/* ---------- Mount slot ---------- */
+.scene {
+  position: relative;
+  width: 100%;
+  touch-action: pan-y;
+}
+.scene--roof,
+.scene--audit {
+  height: min(calc(100svh - var(--nav-h-condensed) - 72px), 780px);
+}
+.scene picture {
+  display: contents;
+}
+.scene__live {
+  position: absolute;
+  inset: 0;
+}
+.scene__poster,
+.scene__frame,
+.scene__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: 0;
+}
+.scene__canvas {
+  display: block;
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out);
+}
+.scene.is-live .scene__canvas {
+  opacity: 1;
+}
+.scene__poster {
+  transition: opacity 420ms var(--ease-out);
+}
+.scene.is-live .scene__poster {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.scene__frame {
+  opacity: 0;
+  transition: opacity 220ms var(--ease-out);
+}
+.scene__frame.is-on {
+  opacity: 1;
+}
+
+/* Roof: poster and fallback frames have edges feathered; live WebGL canvas already has alpha: true */
+.scene--roof .scene__poster,
+.scene--roof .scene__frame {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-composite: intersect;
+  mix-blend-mode: multiply;
+}
+
+/* Hotspot ring that follows the active layer (2.0 leader ring, brand gold) */
+.scene__hotspot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--t-3) var(--ease-out);
+}
+.scene:not(.is-live) .scene__hotspot {
+  display: none;
+}
+.scene__hotspot-ring {
+  fill: rgb(255 199 0 / 0.24);
+  stroke: var(--sun);
+  stroke-width: 1.6;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.scene__hotspot-ring.is-pulse {
+  animation: hotspot 700ms var(--ease-out) 1;
+}
+.scene__hotspot-dot {
+  fill: var(--sun);
+  stroke: var(--ink);
+  stroke-width: 1.6;
+}
+@keyframes hotspot {
+  from {
+    transform: scale(0.4);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Audit: unboxed transparent 3D stage floating directly in the page's dusk sky */
+.scene--audit {
+  isolation: isolate;
+}
+.scene--audit .scene__poster,
+.scene--audit .scene__frame {
+  object-fit: contain;
+}
+.scene__engine,
+.scene__engine .ru3d {
+  position: absolute;
+  inset: 0;
+}
+.scene__engine .ru3d {
+  background: none;
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out);
+}
+.scene.is-live .scene__engine .ru3d {
+  opacity: 1;
+}
+.scene__engine .ru3d .ru3d-visual {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  padding: 0;
+}
+.scene__engine .ru3d .ru3d-viewport {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+.scene__engine .ru3d-viewport canvas {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 5%, #000 90%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 5%, #000 90%, transparent 100%);
+  mask-composite: intersect;
+}
+.scene__engine .ru3d-viewport::after,
+.scene__engine .ru3d-hud,
+.scene__engine .ru3d-rec,
+.scene__engine .ru3d-loading,
+.scene__engine .ru3d-cta3d {
+  display: none !important;
+}
+.scene__engine .ru3d-flir {
+  inset: 10% 6%;
+}
+.scene__engine .ru3d-flir__scale {
+  right: auto;
+  left: 10px;
+}
+.scene__engine .ru3d-flir__scale::before,
+.scene__engine .ru3d-flir__scale::after {
+  right: auto;
+  left: 16px;
+}
+.scene__engine .ru3d-flir__line {
+  display: none;
+}
+
+/* ---------- Text panel (Riseup 2.0 Glass HUD Card on Desktop & Mobile) ---------- */
+.scene-panel {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-content: center;
+  gap: 18px;
+}
+#roof .scene-panel {
+  padding: clamp(22px, 2.4vw, 32px);
+  border-radius: var(--r-xl);
+  background-color: rgba(255, 255, 255, 0.86);
+  background-image: var(--glass-sheen);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  box-shadow: var(--inner-hi), var(--sh-glass);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+}
+#audit .scene-panel {
+  padding: clamp(20px, 2.2vw, 28px);
+  border-radius: var(--r-xl);
+  background-color: var(--glass-fill-card);
+  background-image: var(--glass-sheen);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--inner-hi), var(--sh-card);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+}
+.scene-panel__h {
+  font-size: clamp(2rem, 3.6vw, 3.35rem);
+  max-width: 11ch;
+  text-wrap: balance;
+}
+.audit__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  background: var(--surface-card-alt);
+  border: 1px solid var(--surface-border);
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 800;
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+.audit__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success-green);
+  box-shadow: 0 0 0 3px rgb(16 185 129 / 0.24);
+}
+.audit__h {
+  max-width: 14ch;
+  font-size: clamp(1.85rem, 0.9rem + 2vw, 2.65rem);
+  line-height: 1.04;
+}
+.swap {
+  display: grid;
+}
+.swap__item {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+  pointer-events: none;
+}
+.swap__item[data-on] {
+  opacity: 1;
+  transform: none;
+}
+.swap__num {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  background: rgba(var(--sky-rgb), 0.1);
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 800;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg);
+}
+.swap__num span {
+  font-weight: 600;
+  color: var(--fg-2);
+}
+.swap__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-stretch: 108%;
+  font-size: clamp(1.65rem, 1rem + 1.35vw, 2.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+/* Riseup 2.0 Gold Specialty Chip (.rw-slot__specialty-chip) */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  border-radius: var(--r-pill);
+  background: var(--sun);
+  color: var(--ink);
+  box-shadow: 0 2px 8px rgba(var(--gold-rgb), 0.38);
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 800;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.swap__text {
+  max-width: 40ch;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+.facts > div {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(var(--sky-rgb), 0.06);
+  border: 1px solid rgba(var(--sky-rgb), 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.facts dd {
+  margin-top: 2px;
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 800;
+  font-size: 0.95rem;
+  line-height: 1.25;
+  color: var(--fg);
+}
+.scene-panel__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  min-height: 52px;
+}
+.scene-panel__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+/* ---------- Rail (roof): slim progress line with clickable stops ---------- */
+.rail__list {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  max-width: 380px;
+}
+.rail--dots .rail__list::before,
+.rail--dots .rail__list::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 50%;
+  height: 2.5px;
+  margin-top: -1.25px;
+  border-radius: 99px;
+  background: var(--line);
+}
+.rail--dots .rail__list::after {
+  background: var(--fg);
+  transform: scaleX(var(--p));
+  transform-origin: 0 50%;
+  transition: transform var(--t-3) var(--ease-out);
+}
+.rail__stop {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--fg);
+}
+.rail__dot {
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--fg);
+  border-radius: 50%;
+  background: var(--sky-noon);
+  transition: transform var(--t-2) var(--ease-out), background-color var(--t-2) var(--ease-out),
+    box-shadow var(--t-2) var(--ease-out);
+}
+.rail__stop[data-done] .rail__dot {
+  background: var(--fg);
+}
+.rail__stop[aria-current] .rail__dot {
+  background: var(--sun);
+  transform: scale(1.5);
+  box-shadow: 0 0 0 4px rgba(var(--gold-rgb), 0.35);
+}
+.rail__stop:hover .rail__dot {
+  transform: scale(1.3);
+}
+.rail__steps {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.rail__step {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgba(11, 27, 43, 0.2);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 1px 0 #fff, var(--shadow-1);
+  color: var(--ink);
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 700;
+  transition: background-color var(--t-2), transform var(--t-2);
+}
+.rail__step:hover:not(:disabled) {
+  background: #fff;
+  transform: translateY(-1px);
+}
+.rail__step:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ---------- Stepper (audit): three interactive dark-glass HUD rows ---------- */
+.stepper {
+  display: grid;
+  gap: 8px;
+}
+.stepper__item {
+  --fill: clamp(0, calc((var(--sp, 0) - var(--a)) * 3), 1);
+  border-radius: 14px;
+  background-color: var(--surface-card-alt);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--surface-hi);
+  padding-inline: 14px;
+  transition: border-color var(--t-2) var(--ease-out), background-color var(--t-2) var(--ease-out),
+    box-shadow var(--t-2) var(--ease-out);
+}
+.stepper__item:has(.stepper__row[aria-current]) {
+  border-color: rgba(var(--gold-rgb), 0.55);
+  box-shadow: var(--inner-hi), 0 0 0 1px rgba(var(--gold-rgb), 0.25), var(--sh-glass);
+}
+.stepper__row {
+  display: grid;
+  grid-template-columns: 3px 2rem 1fr;
+  align-items: start;
+  gap: 0 11px;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  color: var(--fg);
+  text-align: left;
+  opacity: 0.72;
+  transition: opacity var(--t-2) var(--ease-out);
+}
+.stepper__row:hover,
+.stepper__row[aria-current] {
+  opacity: 1;
+}
+.stepper__line {
+  position: relative;
+  align-self: stretch;
+  border-radius: 99px;
+  background: var(--line);
+  overflow: hidden;
+}
+.stepper__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--sun);
+  box-shadow: 0 0 8px rgba(var(--gold-rgb), 0.65);
+  transform: scaleY(var(--fill));
+  transform-origin: 50% 0;
+}
+.stepper__num {
+  padding-top: 2px;
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 800;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--sun);
+}
+.stepper__body {
+  display: grid;
+  gap: 3px;
+}
+.stepper__title {
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 700;
+  font-size: 1.02rem;
+  line-height: 1.28;
+}
+.stepper__row[aria-current] .stepper__title {
+  font-weight: 800;
+}
+.stepper__text {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--fg-2);
+  transition: grid-template-rows var(--t-3) var(--ease-out);
+}
+.stepper__row[aria-current] .stepper__text {
+  grid-template-rows: 1fr;
+}
+.stepper__text > span {
+  min-height: 0;
+}
+.scene-panel--audit {
+  gap: 12px;
+}
+
+/* Step mode (reduced motion): no sticky, no scroll distance */
+.scene-track[data-step] {
+  height: auto;
+}
+.scene-track[data-step] .scene-stage {
+  position: relative;
+  height: auto;
+  padding-block: var(--section);
+}
+
+/* ---------- Audit: inline dossier stats & inspector badge ---------- */
+.stats {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 10px 14px;
+  border-radius: 14px;
+  background-color: var(--surface-card-alt);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--surface-hi);
+}
+.stat {
+  padding: 2px 12px;
+  border-left: 1px solid var(--line);
+}
+.stat:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+.stat__value {
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-stretch: 108%;
+  font-size: clamp(1.35rem, 1rem + 0.85vw, 1.8rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+}
+.stat__unit {
+  font-size: 0.58em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--sun);
+}
+.stat__label {
+  margin-top: 3px;
+  font-size: 0.8125rem;
+  line-height: 1.25;
+  color: var(--fg-2);
+}
+.inspector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background-color: var(--surface-card-alt);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--surface-hi);
+}
+.inspector img {
+  flex: none;
+  width: 46px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+.inspector figcaption {
+  display: grid;
+  gap: 2px;
+}
+.inspector__name {
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 800;
+  font-size: 0.94rem;
+  color: var(--fg);
+}
+.inspector__note {
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: var(--fg-2);
+}
+
+/* ---------- Phones / small tablets: 3D stage on top + frosted glass HUD card below ---------- */
+@media (max-width: 899px) {
+  .scene-stage {
+    align-items: center;
+    padding-top: calc(var(--nav-h-condensed) + 6px);
+    padding-bottom: calc(var(--bar-h) + 8px + env(safe-area-inset-bottom));
+  }
+  .scene-layout,
+  .scene-layout--audit {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 8px;
+  }
+  .scene {
+    order: 1;
+  }
+  .scene--roof,
+  .scene--audit {
+    height: clamp(220px, 38svh, 330px);
+    margin-inline: calc(-1 * var(--gutter));
+    width: calc(100% + 2 * var(--gutter));
+    overflow: hidden;
+  }
+  #roof .scene-panel,
+  #audit .scene-panel {
+    order: 2;
+    padding: 12px 14px;
+    border-radius: var(--r-lg);
+    gap: 7px;
+  }
+  .audit__eyebrow {
+    padding: 3px 9px;
+    font-size: 0.75rem;
+  }
+  .scene-panel__h,
+  .audit__h {
+    font-size: clamp(1.3rem, 4.6vw, 1.65rem);
+    max-width: none;
+  }
+  .swap__num {
+    padding: 2px 8px;
+    font-size: 0.76rem;
+  }
+  .swap__name {
+    font-size: 1.2rem;
+  }
+  .swap__text {
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
+  .facts {
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .facts > div {
+    padding: 6px 9px;
+    border-radius: 9px;
+  }
+  .facts dt {
+    font-size: 0.75rem;
+  }
+  .facts dd {
+    font-size: 0.82rem;
+  }
+  .scene-panel__foot {
+    min-height: 36px;
+    gap: 8px 14px;
+  }
+  .rail__stop {
+    width: 44px;
+    height: 44px;
+    margin-inline: -5px;
+  }
+  .stepper {
+    gap: 4px;
+  }
+  .stepper__item {
+    padding-inline: 10px;
+    border-radius: 10px;
+  }
+  .stepper__row {
+    min-height: 44px;
+    padding: 8px 0;
+    gap: 0 8px;
+  }
+  .stepper__title {
+    font-size: 0.86rem;
+    line-height: 1.22;
+  }
+  .stepper__text {
+    font-size: 0.76rem;
+    line-height: 1.32;
+  }
+  .stats {
+    padding: 6px 10px;
+    border-radius: 10px;
+  }
+  .stat {
+    padding: 0 8px;
+  }
+  .stat__value {
+    font-size: 1.05rem;
+  }
+  .stat__label {
+    font-size: 0.75rem;
+    margin-top: 1px;
+  }
+  .inspector {
+    padding: 6px 10px;
+    gap: 9px;
+    border-radius: 10px;
+  }
+  .inspector img {
+    width: 34px;
+    height: 40px;
+    border-radius: 7px;
+  }
+  .inspector__name {
+    font-size: 0.8rem;
+  }
+  .inspector__note {
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+  .scene-panel__cta {
+    gap: 8px 14px;
+  }
+  .scene-panel__cta .btn {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 0.86rem;
+  }
+  .scene-panel__cta .tlink {
+    font-size: 0.8rem;
+  }
+  /* Scale 3D callout tags, FLIR HUD & holographic report cleanly inside the mobile 3D stage */
+  .scene__engine .ru3d-tag__line {
+    width: 14px;
+  }
+  .scene__engine .ru3d-tag__box {
+    left: 22px;
+    top: -12px;
+    padding: 4px 7px;
+    border-radius: 6px;
+  }
+  .scene__engine .ru3d-tag--l .ru3d-tag__box {
+    left: auto;
+    right: 22px;
+  }
+  .scene__engine .ru3d-tag--x .ru3d-tag__box {
+    left: 14px;
+    top: -8px;
+    padding: 2px 6px;
+  }
+  .scene__engine .ru3d-tag--x .ru3d-tag__box em {
+    display: none;
+  }
+  .scene__engine .ru3d-tag--x.ru3d-tag--l .ru3d-tag__box {
+    left: auto;
+    right: 14px;
+  }
+  .scene__engine .ru3d-tag__box b {
+    font-size: 12px;
+  }
+  .scene__engine .ru3d-tag__box em {
+    font-size: 12px;
+  }
+  .scene__engine .ru3d-flir {
+    inset: 6% 4%;
+  }
+  .scene__engine .ru3d-report {
+    right: 2.5%;
+    width: clamp(162px, 45%, 205px);
+    font-size: clamp(5.8px, 1.55cqw, 7.6px);
+    padding: 0.7em 0.85em;
+    border-radius: 11px;
+  }
+  .scene__engine .ru3d-r__items li {
+    padding: 0.22em 0.1em;
+  }
+}
+@media (max-width: 899px) and (max-height: 740px) {
+  .scene--roof,
+  .scene--audit {
+    height: 31svh;
+  }
+  #roof .scene-panel,
+  #audit .scene-panel {
+    padding: 9px 12px;
+    gap: 5px;
+  }
+  .audit__eyebrow {
+    display: none;
+  }
+  .inspector {
+    padding: 4px 8px;
+  }
+  .inspector img {
+    width: 28px;
+    height: 32px;
+  }
+  .scene__engine .ru3d-report {
+    font-size: 5.2px;
+    padding: 0.55em 0.7em;
+  }
+  .scene__engine .ru3d-r__items span small {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  #roof .scene-panel,
+  #audit .scene-panel {
+    background-color: var(--surface-card);
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}

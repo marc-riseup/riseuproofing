@@ -102,13 +102,39 @@ export function FinancingCalculator() {
       .then((res) => res.json())
       .then((data) => {
         if (data.ok && Array.isArray(data.plans) && data.plans.length > 0) {
-          setPlans(data.plans);
-          if (data.settings) setSettings(data.settings);
-          if (data.defaultPlan) {
-            setSelectedPlanId(data.defaultPlan.id);
+          const normalizedPlans: FinancingPlan[] = data.plans.map((p: Record<string, unknown>, idx: number) => ({
+            id: Number(p.id ?? idx + 1),
+            name: String(p.name ?? 'Financing Plan'),
+            apr: Number(p.apr ?? 0),
+            termMonths: Number(p.termMonths ?? p.term_months ?? 12),
+            minDownPaymentPct: Number(p.minDownPaymentPct ?? p.min_down_payment_pct ?? 0),
+            isDefault: Boolean(p.isDefault ?? p.is_default ?? false),
+            isActive: Boolean(p.isActive ?? p.is_active ?? true),
+            sortOrder: Number(p.sortOrder ?? p.sort_order ?? idx + 1),
+            badgeLabel: (p.badgeLabel ?? p.badge_label ?? null) as string | null,
+            description: (p.description ?? null) as string | null,
+          }));
+          setPlans(normalizedPlans);
+
+          if (data.settings) {
+            const s = data.settings;
+            const normalizedSettings: FinancingSettings = {
+              minProjectCost: Number(s.minProjectCost ?? s.min_project_cost ?? INITIAL_SETTINGS.minProjectCost),
+              maxProjectCost: Number(s.maxProjectCost ?? s.max_project_cost ?? INITIAL_SETTINGS.maxProjectCost),
+              defaultProjectCost: Number(s.defaultProjectCost ?? s.default_project_cost ?? INITIAL_SETTINGS.defaultProjectCost),
+              creditCheckCopyFlag: Boolean(s.creditCheckCopyFlag ?? s.credit_check_copy_flag ?? INITIAL_SETTINGS.creditCheckCopyFlag),
+              disclaimerText: s.disclaimerText ?? s.disclaimer_text ?? null,
+              ctaText: s.ctaText ?? s.cta_text ?? null,
+            };
+            setSettings(normalizedSettings);
+            if (normalizedSettings.defaultProjectCost) {
+              setAmount(normalizedSettings.defaultProjectCost);
+            }
           }
-          if (data.settings?.defaultProjectCost) {
-            setAmount(data.settings.defaultProjectCost);
+
+          const defPlan = data.defaultPlan || data.default_plan || normalizedPlans.find((p) => p.isDefault);
+          if (defPlan?.id) {
+            setSelectedPlanId(Number(defPlan.id));
           }
         }
       })
@@ -127,7 +153,7 @@ export function FinancingCalculator() {
       {
         name: selectedPlan.name,
         apr: selectedPlan.apr,
-        termMonths: selectedPlan.termMonths,
+        termMonths: selectedPlan.termMonths ?? selectedPlan.term_months ?? 12,
       },
       amount,
       downPayment
@@ -161,8 +187,11 @@ export function FinancingCalculator() {
     }, 250);
   }, []);
 
+  const minCost = settings.minProjectCost ?? settings.min_project_cost ?? INITIAL_SETTINGS.minProjectCost;
+  const maxCost = settings.maxProjectCost ?? settings.max_project_cost ?? INITIAL_SETTINGS.maxProjectCost;
+
   const handleAmountChange = (newAmount: number) => {
-    const clamped = Math.min(Math.max(newAmount, settings.minProjectCost), settings.maxProjectCost);
+    const clamped = Math.min(Math.max(newAmount, minCost), maxCost);
     setAmount(clamped);
     if (downPayment > clamped) setDownPayment(clamped);
     triggerPulse();
@@ -226,10 +255,10 @@ export function FinancingCalculator() {
                 type="number"
                 inputMode="numeric"
                 step="250"
-                min={settings.minProjectCost}
-                max={settings.maxProjectCost}
+                min={minCost}
+                max={maxCost}
                 value={amount}
-                onChange={(e) => handleAmountChange(parseInt(e.target.value, 10) || settings.minProjectCost)}
+                onChange={(e) => handleAmountChange(parseInt(e.target.value, 10) || minCost)}
                 className="w-32 text-right font-mono font-black text-xl text-brand-blue border-b-2 border-brand-blue/40 focus:border-brand-blue focus:outline-none bg-transparent"
                 aria-label="Direct project cost input"
               />
@@ -238,8 +267,8 @@ export function FinancingCalculator() {
           <input
             id="roof-loan-slider"
             type="range"
-            min={settings.minProjectCost}
-            max={settings.maxProjectCost}
+            min={minCost}
+            max={maxCost}
             step={500}
             value={amount}
             onChange={(e) => handleAmountChange(Number(e.target.value))}
@@ -248,9 +277,9 @@ export function FinancingCalculator() {
             aria-label="Roof financing budget slider"
           />
           <div className="flex justify-between text-xs text-slate-400 mt-2 font-mono">
-            <span>${settings.minProjectCost.toLocaleString()} (Small Repair)</span>
-            <span>${Math.round((settings.minProjectCost + settings.maxProjectCost) / 2).toLocaleString()} (Avg Re-Roof)</span>
-            <span>${settings.maxProjectCost.toLocaleString()} (Large Tile / Solar)</span>
+            <span>${minCost.toLocaleString()} (Small Repair)</span>
+            <span>${Math.round((minCost + maxCost) / 2).toLocaleString()} (Avg Re-Roof)</span>
+            <span>${maxCost.toLocaleString()} (Large Tile / Solar)</span>
           </div>
         </div>
 

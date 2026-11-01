@@ -9,6 +9,7 @@ import { Turnstile } from '@/components/shared/Turnstile';
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [serviceType, setServiceType] = useState('residential');
   const [turnstileToken, setTurnstileToken] = useState('');
   const [formStartedAt, setFormStartedAt] = useState<number>(0);
@@ -20,6 +21,7 @@ export function ContactForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
+    setErrorMessage(null);
     try {
       const fd = new FormData(e.currentTarget);
       const body = {
@@ -36,14 +38,24 @@ export function ContactForm() {
         formStartedAt: formStartedAt || Date.now(),
         turnstileToken,
       };
-      await fetch('/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(
+          errData.detail || errData.error || 'Unable to submit your request right now. Please try again.'
+        );
+      }
       setSubmitted(true);
-    } catch {
-      setSubmitted(true); // still show success to user
+    } catch (err: unknown) {
+      const msg =
+        err instanceof Error && err.message
+          ? err.message
+          : 'Unable to submit your request right now. Please check your connection and try again.';
+      setErrorMessage(msg);
     } finally {
       setSubmitting(false);
     }
@@ -84,6 +96,25 @@ export function ContactForm() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+          {errorMessage && (
+            <div
+              role="alert"
+              className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+            >
+              <div>
+                <p className="font-bold">Submission Error</p>
+                <p className="text-rose-700 mt-0.5">{errorMessage}</p>
+              </div>
+              <button
+                type="submit"
+                disabled={submitting}
+                className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shrink-0 cursor-pointer transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="fullName" className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5 block">

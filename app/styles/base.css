@@ -1,0 +1,691 @@
+/* ==========================================================================
+   Base: reset, type, Riseup 2.0 glass system, buttons, links, forms, utilities
+   ========================================================================== */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: 88px;
+    background: var(--sky-azure);
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  body {
+    margin: 0;
+    font-family: var(--ff-body);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--fg);
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  img,
+  svg,
+  video,
+  picture {
+    display: block;
+    max-width: 100%;
+  }
+  img {
+    height: auto;
+  }
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+  button {
+    cursor: pointer;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  ol,
+  ul,
+  dl,
+  dd,
+  figure,
+  blockquote,
+  fieldset,
+  legend {
+    margin: 0;
+    padding: 0;
+  }
+  ol,
+  ul {
+    list-style: none;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  sup {
+    font-size: max(0.6em, 0.8125rem);
+    line-height: 0;
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
+
+/* Headings: heavy grotesk, sentence case */
+.h1,
+.h2,
+.h3 {
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-stretch: 108%;
+  color: var(--fg);
+  text-wrap: balance;
+}
+.h2 {
+  font-size: var(--fs-h2);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+.h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+}
+p.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--fg-2);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+@layer base {
+  p {
+    max-width: var(--measure);
+    text-wrap: pretty;
+  }
+}
+.ui {
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Layout */
+.wrap {
+  width: min(100% - 2 * var(--gutter), var(--wrap));
+  margin-inline: auto;
+}
+.section {
+  position: relative;
+  padding-block: var(--section);
+}
+.grid12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+
+/* --------------------------------------------------------------------------
+   Riseup 2.0 Glass Surface System (adapts across Day, Golden Hour & Night)
+   -------------------------------------------------------------------------- */
+:where(.glass) {
+  position: relative;
+}
+.glass {
+  isolation: isolate;
+  background-color: var(--glass-fill);
+  background-image: var(--glass-sheen);
+  border: 0;
+  box-shadow: var(--inner-hi), var(--sh-glass);
+  border-radius: var(--r-lg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+}
+.glass--card {
+  --glass-fill: var(--glass-fill-card);
+  background-color: var(--glass-fill-card);
+  border-radius: var(--r-xl);
+}
+/* 1px directional light-to-transparent specular rim across all viewports */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--glass-edge);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  opacity: 0.92;
+  transition: opacity var(--t-3) var(--ease-out), filter var(--t-3) var(--ease-out);
+  z-index: -1;
+}
+.glass--hover {
+  transition: transform var(--t-3) var(--ease-out), box-shadow var(--t-3) var(--ease-out),
+    background-color var(--t-2) var(--ease-out);
+}
+@media (hover: hover) {
+  .glass--hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--inner-hi), var(--sh-glass-hover);
+  }
+  .glass--hover:hover::before {
+    opacity: 1;
+    filter: brightness(1.15);
+  }
+}
+
+/* Photos: warm grade, 22px radius, specular inner rim, ~40px parallax frame */
+.photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-panel);
+  background: rgb(var(--tint) / 0.12);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35), var(--shadow-2);
+}
+.photo img {
+  filter: saturate(1.06) contrast(1.03) sepia(0.05) brightness(1.01);
+}
+.photo [data-parallax='photo'] {
+  position: absolute;
+  left: 0;
+  top: -24px;
+  width: 100%;
+  height: calc(100% + 48px);
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Skewed Gold Marker / Highlighter (Riseup 2.0 .hl / .marker) */
+.hl,
+.marker {
+  position: relative;
+  display: inline;
+  background: none;
+  color: inherit;
+  white-space: nowrap;
+  isolation: isolate;
+}
+.hl__text {
+  position: relative;
+  z-index: 1;
+}
+.hl__bg,
+.marker::before {
+  content: '';
+  position: absolute;
+  left: -0.06em;
+  right: -0.06em;
+  bottom: 0.06em;
+  height: 0.42em;
+  background: var(--sun);
+  border-radius: 0.08em;
+  transform: skewX(-8deg);
+  transform-origin: 0 50%;
+  z-index: -1;
+}
+.hl.is-drawn .hl__bg,
+.marker.is-drawn::before {
+  animation: hl-draw 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes hl-draw {
+  from {
+    transform: skewX(-8deg) scaleX(0);
+  }
+  to {
+    transform: skewX(-8deg) scaleX(1);
+  }
+}
+
+/* Staggered scroll-reveal & 3D pointer/touch tilt micro-interactions */
+.will-reveal {
+  opacity: 0;
+  translate: 0 22px;
+  transition:
+    opacity 560ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    translate 560ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+.will-reveal.is-revealed {
+  opacity: 1;
+  translate: 0 0;
+}
+html.lite .glass {
+  --glass-blur: 8px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .svc.is-tilting,
+  .proj.is-tilting,
+  .quote.is-tilting,
+  .claim.is-tilting,
+  .cred.is-tilting,
+  .stat.is-tilting,
+  .inspector.is-tilting {
+    transform: perspective(1000px) translate3d(0, -3px, 0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) !important;
+    will-change: transform;
+  }
+  .is-pressing {
+    scale: 0.97;
+    transition: scale 120ms var(--ease-out);
+  }
+}
+
+/* Focus: Riseup 2.0 high-contrast charcoal + gold halo */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px var(--sun);
+    border-radius: var(--r-sm);
+  }
+}
+
+/* Screen-reader only */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: 12px;
+  z-index: 100;
+  padding: 12px 18px;
+  border-radius: var(--r-button);
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--ff-display);
+  font-weight: 700;
+  transform: translateY(-160%);
+  transition: transform var(--t-2) var(--ease-out);
+}
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Riseup 2.0 Buttons: Primary Red Gradient + 100deg Light Sweep + Spring Arrow
+   -------------------------------------------------------------------------- */
+.btn {
+  --h: 52px;
+  --btn-bg: linear-gradient(180deg, var(--red-500) 0%, var(--red-600) 80%);
+  --btn-bg-hover: linear-gradient(180deg, var(--red-600) 0%, var(--red-700) 100%);
+  --btn-fg: #fff;
+  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), var(--sh-cta);
+  --btn-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, 0.22), var(--sh-cta-hover);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: var(--h);
+  padding: 0 22px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow: var(--btn-shadow);
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.005em;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--t-2) var(--ease-out), box-shadow var(--t-3) var(--ease-out),
+    background var(--t-2) var(--ease-out);
+}
+.btn > * {
+  position: relative;
+  z-index: 1;
+}
+/* 100deg diagonal specular light sweep on hover */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: -20% auto -20% 0;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: translateX(-160%) skewX(-18deg);
+  pointer-events: none;
+  z-index: 0;
+}
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-2px);
+    background: var(--btn-bg-hover);
+    box-shadow: var(--btn-shadow-hover);
+  }
+  .btn:hover::after {
+    transform: translateX(330%) skewX(-18deg);
+    transition: transform 0.9s var(--ease-out);
+  }
+}
+.btn:active {
+  transform: translateY(0) scale(0.99);
+}
+.btn--sm {
+  --h: 44px;
+  padding: 0 16px;
+  font-size: 0.9375rem;
+}
+.btn--lg {
+  --h: 60px;
+  padding: 0 24px 0 30px;
+  font-size: 1.1875rem;
+}
+.btn__arrow {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--t-3) var(--ease-spring);
+}
+.btn:hover .btn__arrow,
+.btn:focus-visible .btn__arrow {
+  transform: translateX(4px);
+}
+.btn__icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.btn--navy {
+  --btn-bg: linear-gradient(180deg, #132a4f 0%, var(--navy) 85%);
+  --btn-bg-hover: linear-gradient(180deg, var(--navy-2) 0%, #09162b 100%);
+  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 10px 24px -10px rgba(12, 30, 58, 0.65);
+  --btn-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 14px 30px -10px rgba(12, 30, 58, 0.8);
+}
+.btn--glass {
+  background: var(--glass-fill);
+  background-image: var(--glass-sheen);
+  color: var(--fg);
+  box-shadow: var(--inner-hi), var(--sh-glass);
+  padding: 0 24px;
+  overflow: visible;
+}
+.btn--glass::after {
+  display: none;
+}
+@media (hover: hover) {
+  .btn--glass:hover {
+    background: var(--glass-fill);
+    background-image: var(--glass-sheen);
+    box-shadow: var(--inner-hi), var(--sh-glass-hover);
+  }
+}
+.btn--block {
+  width: 100%;
+}
+.magnet {
+  display: inline-block;
+}
+
+/* Submit states: label → spinner → check (drawn in 300ms) */
+.btn__label,
+.btn__spin,
+.btn__check {
+  transition: opacity var(--t-1) linear;
+}
+.btn__spin,
+.btn__check {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 22px;
+  height: 22px;
+  opacity: 0;
+}
+.btn__spin {
+  border: 2.5px solid rgb(255 255 255 / 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+}
+.btn__check path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+}
+.btn[data-state='loading'] .btn__label,
+.btn[data-state='done'] .btn__label {
+  opacity: 0;
+}
+.btn[data-state='loading'] .btn__spin {
+  opacity: 1;
+  animation: spin 700ms linear infinite;
+}
+.btn[data-state='done'] .btn__check {
+  opacity: 1;
+}
+.btn[data-state='done'] .btn__check path {
+  animation: draw 300ms var(--ease-out) forwards;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Text links: underline grows from the left + spring arrow
+   -------------------------------------------------------------------------- */
+.tlink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 700;
+  color: var(--fg);
+  background-image: linear-gradient(currentColor, currentColor), linear-gradient(var(--line-strong), var(--line-strong));
+  background-size: 0% 2px, 100% 1px;
+  background-position: 0 calc(50% + 0.78em), 0 calc(50% + 0.78em);
+  background-repeat: no-repeat;
+  transition: background-size var(--t-3) var(--ease-out);
+}
+.tlink:hover,
+.tlink:focus-visible {
+  background-size: 100% 2px, 100% 1px;
+}
+.tlink__arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--t-3) var(--ease-spring);
+}
+.tlink:hover .tlink__arrow {
+  transform: translateX(4px);
+}
+
+/* Inline phone link inside prose (44px touch target without expanding prose leading) */
+.tel {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+  margin-block: -8px;
+  padding-inline: 2px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Forms & 2.0 Tactile Input Wells */
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field__label {
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+.input,
+.select {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: border-color var(--t-2) var(--ease-out), background-color var(--t-2) var(--ease-out),
+    box-shadow var(--t-2) var(--ease-out);
+}
+.select {
+  appearance: none;
+  padding-right: 40px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+    linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+  background-size: 5px 5px, 5px 5px;
+  background-position: calc(100% - 19px) 52%, calc(100% - 14px) 52%;
+  background-repeat: no-repeat;
+}
+.input:hover,
+.select:hover {
+  border-color: var(--ink);
+  background-color: #fff;
+}
+.input:focus-visible,
+.select:focus-visible {
+  border-color: var(--ink);
+  background-color: #fff;
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+  box-shadow: 0 0 0 4px var(--sun);
+}
+.input[aria-invalid='true'] {
+  border-color: var(--signal);
+  background-color: #fff9f8;
+  box-shadow: 0 0 0 3px rgba(230, 57, 45, 0.16);
+}
+.zipnote {
+  min-height: 1.4em;
+  font-family: var(--ff-display);
+  font-stretch: 100%;
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: var(--fg-2);
+}
+.zipnote[data-state='served'] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.38);
+  color: #065f46;
+}
+.zipnote[data-state='served']::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success-green);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.22);
+}
+html.sky-live [data-tone='dark'] .zipnote[data-state='served'] {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(52, 211, 153, 0.42);
+  color: #6ee7b7;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-image: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .glass {
+    border: 1.5px solid var(--line-strong);
+  }
+  .glass::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  .will-reveal {
+    opacity: 1 !important;
+    translate: none !important;
+    transition: none !important;
+  }
+  .hl.is-drawn .hl__bg,
+  .marker.is-drawn::before,
+  .badge__panther,
+  .est__pulse,
+  .strip__dot::after,
+  .scene__hotspot-ring.is-pulse {
+    animation: none !important;
+  }
+  .glass--hover:hover,
+  .btn:hover,
+  .btn:hover .btn__arrow,
+  .tlink:hover .tlink__arrow {
+    transform: none !important;
+  }
+  .btn::after {
+    display: none !important;
+  }
+}

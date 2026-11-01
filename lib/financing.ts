@@ -9,6 +9,12 @@ export interface FinancingPlan {
   sortOrder: number;
   badgeLabel?: string | null;
   description?: string | null;
+  term_months?: number;
+  min_down_payment_pct?: number;
+  is_default?: boolean;
+  is_active?: boolean;
+  sort_order?: number;
+  badge_label?: string | null;
 }
 
 export interface FinancingSettings {
@@ -16,6 +22,12 @@ export interface FinancingSettings {
   maxProjectCost: number;
   defaultProjectCost: number;
   creditCheckCopyFlag: boolean;
+  disclaimerText?: string | null;
+  ctaText?: string | null;
+  min_project_cost?: number;
+  max_project_cost?: number;
+  default_project_cost?: number;
+  credit_check_copy_flag?: boolean;
 }
 
 export interface FinancingCalculationResult {
@@ -41,16 +53,17 @@ export interface FinancingCalculationResult {
  * Round to nearest dollar.
  */
 export function calculateFinancing(
-  plan: Pick<FinancingPlan, 'name' | 'apr' | 'termMonths'>,
+  plan: Pick<FinancingPlan, 'name' | 'apr' | 'termMonths'> & { term_months?: number },
   projectCost: number,
   downPayment = 0
 ): FinancingCalculationResult {
-  const safeCost = Math.max(0, projectCost);
-  const safeDown = Math.min(safeCost, Math.max(0, downPayment));
+  const safeCost = Math.max(0, Number(projectCost) || 0);
+  const safeDown = Math.min(safeCost, Math.max(0, Number(downPayment) || 0));
   const principal = Math.max(0, safeCost - safeDown);
 
-  const n = Math.max(1, plan.termMonths);
-  const apr = Math.max(0, plan.apr);
+  const rawTerm = plan.termMonths ?? plan.term_months ?? 12;
+  const n = Math.max(1, Number(rawTerm) || 12);
+  const apr = Math.max(0, Number(plan.apr) || 0);
 
   let monthlyPayment: number;
   let totalInterest: number;

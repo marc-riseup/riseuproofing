@@ -1,0 +1,237 @@
+/* ==========================================================================
+   Rise Up 3.0 tokens — Unified with Riseup 2.0 Glass, Button & Surface System
+   ========================================================================== */
+:root {
+  /* Sky (one layer per time of day) */
+  --sky-azure: #3fb2ea;
+  --sky-mid: #55c4f5;
+  --sky-haze: #dff3fc;
+  --sky-noon: #f4f9fc;
+  --sky-gold: #ffd9a0;
+  --sky-dusk: #173462;
+  --sky-night: #050d20;
+
+  /* Ink + brand (Riseup 2.0 exact palette) */
+  --ink: #0b1b2b;
+  --charcoal-900: #0b1b2b;
+  --charcoal-700: #3a3d42;
+  --charcoal-500: #565b62;
+  --navy: #0c1e3a;
+  --navy-2: #16305a;
+  --sun: #ffc700;
+  --gold-500: #ffc700;
+  --gold-600: #d4a300;
+  --signal: #e5392b;
+  --signal-hi: #cc2e23;
+  --signal-lo: #a9241b;
+  --red-500: #e5392b;
+  --red-600: #cc2e23;
+  --red-700: #a9241b;
+  --success-green: #10b981;
+  --paper: #ffffff;
+  --white: #ffffff;
+
+  /* RGB channels for 2.0 tinted glows & borders */
+  --sky-rgb: 14, 92, 140;
+  --red-rgb: 230, 57, 45;
+  --gold-rgb: 249, 197, 0;
+  --charcoal-rgb: 31, 31, 31;
+
+  /* Type */
+  --ff-display: var(--font-display), 'Archivo', 'Arial Narrow', Arial, sans-serif;
+  --ff-body: var(--font-body), 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --fs-h1: clamp(2.15rem, 0.95rem + 4.6vw, 5.25rem);
+  --fs-h2: clamp(2.35rem, 4.6vw, 4.25rem);
+  --fs-h3: clamp(1.45rem, 1rem + 1.15vw, 1.95rem);
+  --fs-lead: clamp(1.125rem, 1.02rem + 0.42vw, 1.3125rem);
+  --fs-body: clamp(1.0625rem, 1.02rem + 0.18vw, 1.1875rem);
+  --fs-small: 0.9375rem;
+  --fs-ui: 1rem;
+  --measure: 66ch;
+
+  /* Radius hierarchy (2.0 geometric scale) */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+  --r-control: 10px;
+  --r-button: 14px;
+  --r-panel: 22px;
+  --r-hero: 28px;
+
+  /* Spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 144px;
+  --section: clamp(96px, 11vw, 168px);
+  --gutter: clamp(24px, 4vw, 48px);
+  --col-gap: clamp(24px, 2.4vw, 32px);
+  --wrap: 1280px;
+
+  /* Motion */
+  --t-1: 120ms;
+  --t-2: 180ms;
+  --t-3: 320ms;
+  --t-4: 600ms;
+  --t-5: 1200ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-nav: cubic-bezier(0.7, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Chrome geometry */
+  --strip-h: 44px;
+  --nav-h: 68px;
+  --nav-h-condensed: 60px;
+  --bar-h: 56px;
+
+  /* Tone: light (default; also the no-JS and reduced-motion fallback) */
+  --fg: var(--ink);
+  --fg-2: #2b3e50;
+  --fg-3: #475b70;
+  --line: rgb(11 27 43 / 0.14);
+  --line-strong: rgb(11 27 43 / 0.28);
+  --focus: var(--sun);
+
+  /* Content-layer tonal surfaces (Apple HIG: crisp opaque/tonal cards, separate from floating Liquid Glass) */
+  --surface-card: #ffffff;
+  --surface-card-alt: #f7fbfe;
+  --surface-border: rgba(11, 27, 43, 0.12);
+  --surface-hi: inset 0 1px 0 #ffffff;
+
+  /* Depth & Riseup 2.0 Glass Surface System (floating functional layer only) */
+  --tint: 14 92 140;
+  --hl: inset 0 1px 0 rgb(255 255 255 / 0.8);
+  --glass-fill: rgba(255, 255, 255, 0.28);
+  --glass-fill-card: rgba(255, 255, 255, 0.68);
+  --glass-blur: 14px;
+  --glass-sat: 1.7;
+  --glass-sheen: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 255, 255, 0.15) 38%,
+    rgba(255, 255, 255, 0.03) 62%,
+    rgba(255, 255, 255, 0.22) 100%
+  );
+  --glass-edge: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.38) 35%,
+    rgba(255, 255, 255, 0.12) 60%,
+    rgba(255, 255, 255, 0.78)
+  );
+  --inner-hi: inset 0 1px 0 rgba(255, 255, 255, 0.82), inset 0 -1px 0 rgba(255, 255, 255, 0.16);
+  --sh-cta: 0 1px 2px rgba(230, 57, 45, 0.35), 0 10px 26px -8px rgba(230, 57, 45, 0.55);
+  --sh-cta-hover: 0 2px 4px rgba(230, 57, 45, 0.38), 0 16px 34px -10px rgba(230, 57, 45, 0.68);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --glass-blur: 12px;
+  }
+}
+
+/* Golden hour sections tint warm amber-gold */
+#reviews,
+#statement {
+  --tint: 120 70 22;
+  --surface-card: #fffdf9;
+  --surface-card-alt: #fcf7ec;
+  --surface-border: rgba(120, 70, 22, 0.16);
+  --glass-fill: rgba(255, 250, 240, 0.36);
+  --glass-fill-card: rgba(255, 251, 244, 0.74);
+  --glass-edge: linear-gradient(
+    150deg,
+    rgba(255, 253, 245, 1),
+    rgba(255, 215, 145, 0.45) 35%,
+    rgba(255, 255, 255, 0.14) 60%,
+    rgba(255, 232, 185, 0.82)
+  );
+}
+
+/* Dusk & Night sections switch to deep sapphire glass with moonlight specular rim */
+html.sky-live [data-tone='dark'] {
+  --tint: 2 8 22;
+  --hl: inset 0 1px 0 rgb(215 235 255 / 0.2);
+  --fg: #f3f7fc;
+  --fg-2: #c6d4e6;
+  --fg-3: #9fb2ca;
+  --line: rgb(210 230 255 / 0.16);
+  --line-strong: rgb(210 230 255 / 0.34);
+  --surface-card: #0d1f3c;
+  --surface-card-alt: #12284a;
+  --surface-border: rgba(205, 230, 255, 0.18);
+  --surface-hi: inset 0 1px 0 rgba(215, 235, 255, 0.14);
+  --glass-fill: rgba(10, 24, 48, 0.52);
+  --glass-fill-card: rgba(11, 26, 52, 0.68);
+  --glass-sheen: linear-gradient(
+    135deg,
+    rgba(160, 208, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(255, 255, 255, 0.01) 66%,
+    rgba(115, 175, 255, 0.1) 100%
+  );
+  --glass-edge: linear-gradient(
+    150deg,
+    rgba(205, 230, 255, 0.62),
+    rgba(150, 195, 255, 0.18) 36%,
+    rgba(255, 255, 255, 0.05) 64%,
+    rgba(135, 188, 255, 0.42)
+  );
+  --inner-hi: inset 0 1px 0 rgba(215, 235, 255, 0.24), inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  color-scheme: dark;
+}
+
+/* Apple HIG Liquid Glass Accessibility States: Reduced Transparency & Increased Contrast */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-fill: rgba(255, 255, 255, 0.96);
+    --glass-fill-card: #ffffff;
+    --glass-blur: 0px;
+  }
+  #reviews,
+  #statement {
+    --glass-fill: #fffdf9;
+    --glass-fill-card: #fffdf9;
+  }
+  html.sky-live [data-tone='dark'] {
+    --glass-fill: rgba(10, 24, 48, 0.96);
+    --glass-fill-card: #0d1f3c;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --fg-2: var(--ink);
+    --fg-3: var(--ink);
+    --line: rgba(11, 27, 43, 0.45);
+    --line-strong: var(--ink);
+    --surface-border: var(--ink);
+  }
+  html.sky-live [data-tone='dark'] {
+    --fg-2: #ffffff;
+    --fg-3: #ffffff;
+    --line: rgba(255, 255, 255, 0.55);
+    --line-strong: #ffffff;
+    --surface-border: #ffffff;
+  }
+}
+
+/* Re-declared on every section so shadows pick up that section's --tint */
+:root,
+section,
+footer {
+  --shadow-1: 0 1px 2px rgb(var(--tint) / 0.1), 0 8px 20px -8px rgb(var(--tint) / 0.22);
+  --shadow-2: 0 1px 2px rgb(var(--tint) / 0.1), 0 16px 36px -12px rgb(var(--tint) / 0.3), 0 44px 80px -44px rgb(var(--tint) / 0.45);
+  --sh-glass: 0 1px 2px rgb(var(--tint) / 0.1), 0 12px 32px -8px rgb(var(--tint) / 0.24);
+  --sh-glass-hover: 0 2px 4px rgb(var(--tint) / 0.14), 0 20px 44px -10px rgb(var(--tint) / 0.34);
+  --sh-card: 0 1px 2px rgb(var(--tint) / 0.1), 0 28px 64px -18px rgb(var(--tint) / 0.36);
+}

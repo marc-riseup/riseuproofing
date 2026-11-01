@@ -1,10 +1,12 @@
-import path from "path";
-import type { NextConfig } from "next";
+import path from 'node:path';
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    root: path.resolve(__dirname, '..'),
-  },
+  reactStrictMode: true,
+  poweredByHeader: false,
+  allowedDevOrigins: ['192.168.100.10', '192.168.*.*', '10.*.*.*', '172.*.*.*', '*.local'],
+  outputFileTracingRoot: path.join(__dirname),
+  turbopack: { root: path.join(__dirname) },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -19,6 +21,10 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        source: '/img/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
       {
         source: '/(.*)',
         headers: [
@@ -124,15 +130,37 @@ const nextConfig: NextConfig = {
         destination: '/services/deck-builder',
         permanent: true,
       },
+      {
+        source: '/roofing/:city',
+        destination: '/service-area/:city',
+        permanent: true,
+      },
+      {
+        source: '/services/underlayment',
+        destination: '/services/tile-roofing',
+        permanent: true,
+      },
+      {
+        source: '/blog',
+        destination: '/guides',
+        permanent: true,
+      },
+      {
+        source: '/about/our-standards',
+        destination: '/about/roof-tear-off-process',
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
-    const fastApiUrl = process.env.FASTAPI_BACKEND_URL || (process.env.USE_FASTAPI === 'true' ? 'http://127.0.0.1:8000' : null);
-    if (!fastApiUrl) {
-      return [];
-    }
+    const fastApiUrl =
+      process.env.FASTAPI_BACKEND_URL ||
+      process.env.NEXT_PUBLIC_API_URL ||
+      'http://127.0.0.1:8000';
     return {
-      beforeFiles: [
+      beforeFiles: [],
+      afterFiles: [],
+      fallback: [
         {
           source: '/api/:path*',
           destination: `${fastApiUrl}/api/:path*`,
@@ -158,11 +186,8 @@ const nextConfig: NextConfig = {
           destination: `${fastApiUrl}/openapi.json`,
         },
       ],
-      afterFiles: [],
-      fallback: [],
     };
   },
 };
-
 
 export default nextConfig;

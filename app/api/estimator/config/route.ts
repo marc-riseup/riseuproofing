@@ -111,7 +111,7 @@ function getBackendUrl(): string {
   return (
     process.env.FASTAPI_BACKEND_URL ||
     process.env.NEXT_PUBLIC_API_URL ||
-    (process.env.USE_FASTAPI === 'true' ? 'http://127.0.0.1:8000' : 'http://127.0.0.1:8000')
+    (process.env.USE_FASTAPI === 'true' ? 'http://127.0.0.1:8000' : '')
   );
 }
 
@@ -121,26 +121,28 @@ function getApiKey(): string {
 }
 
 export async function GET() {
-  try {
-    const backendUrl = getBackendUrl();
-    const apiKey = getApiKey();
+  const backendUrl = getBackendUrl();
+  if (backendUrl) {
+    try {
+      const apiKey = getApiKey();
 
-    const res = await fetch(`${backendUrl}/api/estimator/config`, {
-      next: { revalidate: 60 },
-      headers: {
-        'x-api-key': apiKey,
-        'Content-Type': 'application/json',
-      },
-    });
+      const res = await fetch(`${backendUrl}/api/estimator/config`, {
+        next: { revalidate: 60 },
+        headers: {
+          'x-api-key': apiKey,
+          'Content-Type': 'application/json',
+        },
+      });
 
-    if (res.ok) {
-      const data = await res.json();
-      if (data && data.ok && Array.isArray(data.services) && data.services.length > 0) {
-        return NextResponse.json(data);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.ok && Array.isArray(data.services) && data.services.length > 0) {
+          return NextResponse.json(data);
+        }
       }
+    } catch (err) {
+      console.warn('[Estimator Route] Failed to fetch live config from backend, using fallback:', err);
     }
-  } catch (err) {
-    console.warn('[Estimator Route] Failed to fetch live config from backend, using fallback:', err);
   }
 
   // Graceful fallback response

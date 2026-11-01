@@ -9,5 +9,5 @@ export default function WarrantyLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <div className="site-page-shell">{children}</div>;
 }
