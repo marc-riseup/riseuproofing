@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Section } from '@/components/shared/Container';
 import { SectionHeading } from '@/components/shared/SectionHeading';
 import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
@@ -73,7 +73,7 @@ export default function TermsPage() {
         <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200/80 space-y-3">
           <h2 className="text-xl font-bold text-slate-900">4. Warranties &amp; Manufacturer Guarantees</h2>
           <p className="text-sm leading-relaxed">
-            As an Owens Corning Preferred Contractor, {COMPANY_NAME} offers non-prorated manufacturer warranty protection on qualifying complete roofing systems, covering material defects up to 50 years. In addition, {COMPANY_NAME} provides a dedicated contractor workmanship guarantee covering installation integrity as specified in individual client contracts.
+            As an Owens Corning Preferred Contractor, {COMPANY_NAME} offers non-prorated manufacturer warranty protection on qualifying complete roofing systems, covering material defects up to 25 years. In addition, {COMPANY_NAME} provides a dedicated contractor workmanship guarantee covering installation integrity as specified in individual client contracts.
           </p>
           <p className="text-sm leading-relaxed">
             Warranties do not cover damage resulting from catastrophic weather events (exceeding specified design wind speeds), acts of God, unauthorized roof alterations or third-party foot traffic, improper attic ventilation modifications made by others, or failure by the property owner to conduct routine drainage maintenance.

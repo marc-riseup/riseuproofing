@@ -1,12 +1,13 @@
-import path from 'node:path';
-import type { NextConfig } from 'next';
+import fs from "fs";
+import path from "path";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  poweredByHeader: false,
-  allowedDevOrigins: ['192.168.100.10', '192.168.*.*', '10.*.*.*', '172.*.*.*', '*.local'],
-  outputFileTracingRoot: path.join(__dirname),
-  turbopack: { root: path.join(__dirname) },
+  turbopack: {
+    root: fs.existsSync(path.join(__dirname, "node_modules/next/package.json"))
+      ? __dirname
+      : path.resolve(__dirname, ".."),
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -22,10 +23,6 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: '/img/:path*',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
-      },
-      {
         source: '/(.*)',
         headers: [
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
@@ -37,12 +34,12 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com",
+              `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''} blob: https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com`,
               "worker-src 'self' blob:",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com",
-              "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https://images.unsplash.com https://media.base44.com https://lh3.googleusercontent.com https://s3-media0.fl.yelpcdn.com https://s3-media1.fl.yelpcdn.com https://s3-media2.fl.yelpcdn.com https://cdn.weatherapi.com https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://*.tile.openstreetmap.fr https://server.arcgisonline.com https://services.arcgisonline.com https://*.basemaps.cartocdn.com https://basemaps.cartocdn.com https://unpkg.com",
-              "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://vitals.vercel-insights.com https://server.arcgisonline.com https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://challenges.cloudflare.com",
+              "style-src 'self' 'unsafe-inline'",
+              "font-src 'self' data:",
+              "img-src 'self' data: blob: https://images.unsplash.com https://media.base44.com https://lh3.googleusercontent.com https://s3-media0.fl.yelpcdn.com https://s3-media1.fl.yelpcdn.com https://s3-media2.fl.yelpcdn.com https://cdn.weatherapi.com https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://*.tile.openstreetmap.fr https://server.arcgisonline.com https://services.arcgisonline.com https://*.basemaps.cartocdn.com https://basemaps.cartocdn.com",
+              "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://server.arcgisonline.com https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://challenges.cloudflare.com",
               "frame-src 'self' https://challenges.cloudflare.com",
               "frame-ancestors 'none'",
               "base-uri 'self'",
@@ -130,41 +127,15 @@ const nextConfig: NextConfig = {
         destination: '/services/deck-builder',
         permanent: true,
       },
-      {
-        source: '/roofing/:city',
-        destination: '/service-area/:city',
-        permanent: true,
-      },
-      {
-        source: '/services/underlayment',
-        destination: '/services/tile-roofing',
-        permanent: true,
-      },
-      {
-        source: '/blog',
-        destination: '/guides',
-        permanent: true,
-      },
-      {
-        source: '/about/our-standards',
-        destination: '/about/roof-tear-off-process',
-        permanent: true,
-      },
     ];
   },
   async rewrites() {
-    const fastApiUrl =
-      process.env.FASTAPI_BACKEND_URL ||
-      process.env.NEXT_PUBLIC_API_URL ||
-      'http://127.0.0.1:8000';
+    const fastApiUrl = process.env.FASTAPI_BACKEND_URL || (process.env.USE_FASTAPI === 'true' ? 'http://127.0.0.1:8000' : null);
+    if (!fastApiUrl) {
+      return [];
+    }
     return {
-      beforeFiles: [],
-      afterFiles: [],
-      fallback: [
-        {
-          source: '/api/:path*',
-          destination: `${fastApiUrl}/api/:path*`,
-        },
+      beforeFiles: [
         {
           source: '/developer',
           destination: `${fastApiUrl}/developer`,
@@ -184,6 +155,13 @@ const nextConfig: NextConfig = {
         {
           source: '/openapi.json',
           destination: `${fastApiUrl}/openapi.json`,
+        },
+      ],
+      afterFiles: [],
+      fallback: [
+        {
+          source: '/api/:path*',
+          destination: `${fastApiUrl}/api/:path*`,
         },
       ],
     };

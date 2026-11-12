@@ -19,33 +19,34 @@ export function Container({ children, className, as: Tag = 'div', id }: Containe
 interface SectionProps {
   children: ReactNode;
   className?: string;
+  containerClassName?: string;
   id?: string;
   alternate?: boolean;
+  dark?: boolean;
 }
 
 export function Section({
   children,
   className,
+  containerClassName,
   id,
   alternate = false,
+  dark = false,
 }: SectionProps) {
   return (
     <section
       id={id}
       className={cn(
-        'section-padding relative overflow-hidden text-[var(--text-primary)] transition-colors duration-300',
-        alternate ? 'theme-section-alt' : 'glass-section-dark',
+        'section-padding relative',
+        dark
+          ? 'bg-[#0B1B2B] text-white'
+          : alternate
+            ? 'bg-[#F4F9FC] text-[#0B1B2B]'
+            : 'bg-[#FFFFFF] text-[#0B1B2B]',
         className
       )}
     >
-      {/* Living Ambient Drift Orbs */}
-      <div className="absolute -top-32 -left-32 w-[420px] h-[420px] rounded-full bg-brand-blue/10 blur-3xl pointer-events-none animate-ambient-drift-1" />
-      <div className="absolute -bottom-32 -right-32 w-[420px] h-[420px] rounded-full bg-amber-400/8 blur-3xl pointer-events-none animate-ambient-drift-2" />
-      
-      {/* Delicate Architectural Micro-Grid Texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(#2F9FE3_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.04] pointer-events-none" />
-
-      <Container className="relative z-10">{children}</Container>
+      <Container className={cn('relative z-10', containerClassName)}>{children}</Container>
     </section>
   );
 }

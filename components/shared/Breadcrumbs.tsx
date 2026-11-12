@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Icon } from '@/components/shared/Icon';
 import { cn, BASE_URL } from '@/lib/utils';
+import { serializeJsonLd } from '@/lib/seo/metadata';
 
 export interface BreadcrumbItem {
   label: string;
@@ -29,7 +30,7 @@ export function Breadcrumbs({ items, dark = true, className }: BreadcrumbsProps)
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       {/* Desktop Breadcrumbs */}
       <nav aria-label="Breadcrumb" className={cn('mb-6 hidden md:block', className)}>

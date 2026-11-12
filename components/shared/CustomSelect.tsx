@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useId, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useId, useMemo, useCallback, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronDown, Check, Search, X } from 'lucide-react';
 
@@ -61,8 +61,16 @@ export default function CustomSelect({
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+  const [prevOpen, setPrevOpen] = useState(false);
+  if (prevOpen !== isOpen) {
+    setPrevOpen(isOpen);
+    if (!isOpen) {
+      setSearchQuery('');
+      setHighlightedIndex(-1);
+    }
+  }
   const [coords, setCoords] = useState<{ top: number; left: number; width: number; flipUp: boolean }>({
     top: 0,
     left: 0,
@@ -101,15 +109,13 @@ export default function CustomSelect({
   const isSearchable = searchable ?? normalizedOptions.length > 7;
 
   useEffect(() => {
-    setMounted(true);
     const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Update floating popover position
-  const updatePosition = () => {
+  const updatePosition = useCallback(() => {
     if (!triggerRef.current) return;
     const rect = triggerRef.current.getBoundingClientRect();
     const dropdownHeight = Math.min(320, normalizedOptions.length * 44 + (isSearchable ? 52 : 16));
@@ -129,16 +135,12 @@ export default function CustomSelect({
       width,
       flipUp,
     });
-  };
+  }, [normalizedOptions.length, isSearchable, variant]);
 
   useEffect(() => {
-    if (!isOpen) {
-      setSearchQuery('');
-      setHighlightedIndex(-1);
-      return;
-    }
+    if (!isOpen) return;
 
-    updatePosition();
+    const raf = window.requestAnimationFrame(updatePosition);
 
     const handleScrollOrResize = () => {
       if (!isMobile) updatePosition();
@@ -162,12 +164,13 @@ export default function CustomSelect({
     document.addEventListener('touchstart', handleClickOutside);
 
     return () => {
+      window.cancelAnimationFrame(raf);
       window.removeEventListener('resize', handleScrollOrResize);
       window.removeEventListener('scroll', handleScrollOrResize, true);
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
-  }, [isOpen, isMobile]);
+  }, [isOpen, isMobile, updatePosition]);
 
   // Focus search input on open
   useEffect(() => {

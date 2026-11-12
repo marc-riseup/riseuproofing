@@ -5,7 +5,7 @@ import {
   buildMetadata,
   buildFAQJsonLd,
   buildTechArticleJsonLd,
-  buildLocalBusinessJsonLd,
+  serializeJsonLd,
 } from '@/lib/seo/metadata';
 import { Section, Container } from '@/components/shared/Container';
 import { SectionHeading } from '@/components/shared/SectionHeading';
@@ -131,13 +131,13 @@ const COMPARISON_ROWS = [
   },
   {
     feature: 'Expected Shingle Lifespan',
-    tearOff: 'Full 30 to 50 years per manufacturer engineering specs',
+    tearOff: 'Full 25+ years per manufacturer engineering specs',
     overlay: 'Shortened by 25% to 40% due to trapped heat baking shingles',
     tearOffAdvantage: true,
   },
   {
     feature: 'Manufacturer System Warranty',
-    tearOff: 'Full coverage (e.g., Owens Corning 50-Year Non-Prorated Warranty)',
+    tearOff: 'Full coverage (e.g., Owens Corning 25-Year Non-Prorated Warranty)',
     overlay: 'Severely limited or voided by major shingle manufacturers',
     tearOffAdvantage: true,
   },
@@ -178,21 +178,16 @@ export default function RoofTearOffProcessPage() {
   });
 
   const faqJsonLd = buildFAQJsonLd(FAQS);
-  const localBusinessJsonLd = buildLocalBusinessJsonLd();
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(techArticleJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd) }}
       />
 
       <Section alternate={false} className="pt-32 sm:pt-36">
@@ -280,7 +275,7 @@ export default function RoofTearOffProcessPage() {
               </div>
 
               <p>
-                Beyond legal building codes, installing a second layer adds between <strong>250 to 350 pounds of dead load weight per 100 square feet</strong>. In Southern California&apos;s active seismic zones, placing double roof weight on 1960s–1980s roof trusses significantly increases deflection strain during ground tremors. Furthermore, premium manufacturers like Owens Corning and GAF explicitly stipulate that their non-prorated 50-year system warranties require direct installation on sound, clean structural sheathing.
+                Beyond legal building codes, installing a second layer adds between <strong>250 to 350 pounds of dead load weight per 100 square feet</strong>. In Southern California&apos;s active seismic zones, placing double roof weight on 1960s–1980s roof trusses significantly increases deflection strain during ground tremors. Furthermore, premium manufacturers like Owens Corning and GAF explicitly stipulate that their non-prorated 25-year system warranties require direct installation on sound, clean structural sheathing.
               </p>
             </div>
           </div>
@@ -542,7 +537,7 @@ export default function RoofTearOffProcessPage() {
                 Residential Reroofing
               </h4>
               <p className="text-[11px] text-[var(--text-muted)] mt-1 line-clamp-2">
-                Owens Corning architectural shingle systems with 50-year warranties.
+                Owens Corning architectural shingle systems with 25-year warranties.
               </p>
             </Link>
 
@@ -566,7 +561,7 @@ export default function RoofTearOffProcessPage() {
                 Standing Seam Metal
               </h4>
               <p className="text-[11px] text-[var(--text-muted)] mt-1 line-clamp-2">
-                Class A wildfire rated, non-combustible lifetime metal roofs.
+                Class A wildfire rated, non-combustible 25-year warrantied metal roofs.
               </p>
             </Link>
           </div>

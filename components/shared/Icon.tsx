@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '@/lib/utils';
+import { clsx as cn } from 'clsx';
 
 export type IconName =
   | 'star'
@@ -58,13 +58,8 @@ export interface IconProps extends React.SVGProps<SVGSVGElement> {
 
 export function Icon({ name, className, ...props }: IconProps) {
   return (
-    <svg
-      className={cn('inline-block shrink-0', className)}
-      aria-hidden="true"
-      focusable="false"
-      {...props}
-    >
-      <use href={`/sprite.svg#icon-${name}`} xlinkHref={`/sprite.svg#icon-${name}`} />
+    <svg className={cn('inline-block shrink-0', className)} aria-hidden="true" {...props}>
+      <use href={`/sprite.svg#icon-${name}`} />
     </svg>
   );
 }

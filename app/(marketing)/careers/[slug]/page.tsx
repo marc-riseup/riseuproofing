@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Icon } from '@/components/shared/Icon';
 import { getJobBySlug, getAllJobSlugs } from '@/lib/data/careers';
-import { buildMetadata, buildJobPostingJsonLd } from '@/lib/seo/metadata';
+import { buildMetadata, buildJobPostingJsonLd, serializeJsonLd } from '@/lib/seo/metadata';
 import { Section } from '@/components/shared/Container';
 import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
 import { PHONE_NUMBER, PHONE_HREF } from '@/lib/utils';
@@ -33,7 +33,7 @@ export default async function CareerDetailPage({ params }: { params: Promise<{ s
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jobJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jobJsonLd) }} />
       <Section alternate={false} className="pt-32 sm:pt-36">
         <Breadcrumbs
           items={[

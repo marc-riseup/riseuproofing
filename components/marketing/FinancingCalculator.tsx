@@ -57,11 +57,10 @@ const INITIAL_SETTINGS: FinancingSettings = {
  */
 function useAnimatedNumber(target: number, duration = 280): number {
   const [current, setCurrent] = useState(target);
-  const targetRef = useRef(target);
-  targetRef.current = target;
+  const currentRef = useRef(target);
 
   useEffect(() => {
-    let start = current;
+    const start = currentRef.current;
     let startTime: number | null = null;
     let animFrame: number;
 
@@ -71,7 +70,8 @@ function useAnimatedNumber(target: number, duration = 280): number {
       const progress = Math.min(elapsed / duration, 1);
       // Cubic ease-out
       const ease = 1 - Math.pow(1 - progress, 3);
-      const nextVal = Math.round(start + (targetRef.current - start) * ease);
+      const nextVal = Math.round(start + (target - start) * ease);
+      currentRef.current = nextVal;
       setCurrent(nextVal);
 
       if (progress < 1) {

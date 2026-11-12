@@ -9,5 +9,5 @@ export default function InspectionLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="site-page-shell">{children}</div>;
+  return <>{children}</>;
 }

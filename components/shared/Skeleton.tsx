@@ -83,7 +83,7 @@ export function WebsiteHeroSkeleton() {
           {/* 4 Stat KPI Metric Boxes */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-white/5">
             {[
-              { val: '50-Year', sub: 'Non-Prorated' },
+              { val: '25-Year', sub: 'Non-Prorated' },
               { val: '#1096492', sub: 'Licensed & Insured' },
               { val: '15+ Yrs', sub: 'San Diego Trade' },
               { val: '5.0 ★', sub: 'Google Reviews' },

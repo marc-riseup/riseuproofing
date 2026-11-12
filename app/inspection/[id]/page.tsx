@@ -78,8 +78,8 @@ export default function PublicInspectionPage({
         }
         const data = await res.json();
         setReport(data.inspection);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load inspection report.');
+      } catch (err: unknown) {
+        setError((err instanceof Error ? err.message : '') || 'Failed to load inspection report.');
       } finally {
         setLoading(false);
       }
@@ -305,7 +305,7 @@ export default function PublicInspectionPage({
                 </div>
                 <div className="p-3 rounded-2xl bg-slate-900 border border-white/5 print:bg-white print:border-slate-300">
                   <span className="text-slate-400 print:text-slate-600 block text-[11px]">Warranty Eligibility</span>
-                  <span className="font-bold text-amber-400">Up to 50-Yr Owens Corning</span>
+                  <span className="font-bold text-amber-400">Up to 25-Yr Owens Corning</span>
                 </div>
               </div>
             </div>
@@ -396,10 +396,10 @@ export default function PublicInspectionPage({
           {/* Bottom Homeowner CTA (Hidden on print) */}
           <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border border-amber-400/30 text-center space-y-4 shadow-xl print:hidden">
             <h3 className="text-xl sm:text-2xl font-black text-white">
-              Need a Roof Tune-up or Full 50-Year Replacement?
+              Need a Roof Tune-up or Full 25-Year Replacement?
             </h3>
             <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto">
-              Rise Up Roofing provides lifetime warranties, Owens Corning Preferred installation, and flexible monthly financing starting as low as $149/mo.
+              Rise Up Roofing provides 25-year warranties, Owens Corning Preferred installation, and flexible monthly financing starting as low as $149/mo.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
@@ -425,7 +425,7 @@ export default function PublicInspectionPage({
               Rise Up Roofing &amp; Construction • California State License Board CSLB #1096492 • Bonded &amp; Insured
             </p>
             <p>
-              Serving San Diego County &amp; Riverside County with 50-Year Non-Prorated Owens Corning Roofing Systems.
+              Serving San Diego County &amp; Riverside County with 25-Year Non-Prorated Owens Corning Roofing Systems.
             </p>
           </div>
         </div>

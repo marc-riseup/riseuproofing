@@ -105,8 +105,8 @@ export default function ClientProposalPage({ params }: { params: Promise<{ id: s
       const d = await res.json();
       setSuccess(true);
       setJobNumber(d.jobNumber || '');
-    } catch (err: any) {
-      alert(err.message || 'Error signing proposal');
+    } catch (err: unknown) {
+      alert((err instanceof Error ? err.message : '') || 'Error signing proposal');
     } finally {
       setSubmitting(false);
     }
@@ -277,7 +277,7 @@ export default function ClientProposalPage({ params }: { params: Promise<{ id: s
           )}
 
           <p className="text-xs text-slate-400 pt-1">
-            Price includes all labor, permits, disposal, and 50-year manufacturer warranty.
+            Price includes all labor, permits, disposal, and 25-year manufacturer warranty.
           </p>
         </div>
 

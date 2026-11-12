@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Icon, type IconName } from '@/components/shared/Icon';
 import { services, getServiceBySlug, getAllServiceSlugs } from '@/lib/data/services';
 import { projects } from '@/lib/data/projects';
-import { buildMetadata, buildServiceJsonLd, buildFAQJsonLd } from '@/lib/seo/metadata';
+import { buildMetadata, buildServiceJsonLd, buildFAQJsonLd, serializeJsonLd } from '@/lib/seo/metadata';
 import { Section } from '@/components/shared/Container';
 import { SectionHeading } from '@/components/shared/SectionHeading';
 import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
@@ -53,8 +53,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
-      {faqJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(serviceJsonLd) }} />
+      {faqJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd) }} />}
 
       {/* Hero Banner */}
       <section className="relative min-h-[460px] flex items-end overflow-hidden bg-[#0B1B2B]">
@@ -117,7 +117,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                     Commercial Facility Managers &amp; HOA Boards
                   </p>
                   <p className="text-[11px] sm:text-xs text-amber-200/90 mt-0.5">
-                    20 to 30-Year NDL (No Dollar Limit) manufacturer warranties • Title 24 cool-roof engineering • Zero tenant disruption
+                    20 to 25-Year NDL (No Dollar Limit) manufacturer warranties • Title 24 cool-roof engineering • Zero tenant disruption
                   </p>
                 </div>
               </div>

@@ -4,7 +4,7 @@ import { Icon } from '@/components/shared/Icon';
 import {
   buildMetadata,
   buildFAQJsonLd,
-  buildLocalBusinessJsonLd,
+  serializeJsonLd,
 } from '@/lib/seo/metadata';
 import { Section, Container } from '@/components/shared/Container';
 import { SectionHeading } from '@/components/shared/SectionHeading';
@@ -118,23 +118,18 @@ const STEPS = [
   {
     step: '04',
     title: 'Flawless Installation & Warranty',
-    desc: 'Our master craftsmen install your new roof system to California Title 24 standards, backed by our lifetime warranty.',
+    desc: 'Our master craftsmen install your new roof system to California Title 24 standards, backed by our 25-year warranty.',
   },
 ];
 
 export default function RoofFinancingSanDiegoPage() {
   const faqJsonLd = buildFAQJsonLd(FINANCING_FAQS);
-  const localBusinessJsonLd = buildLocalBusinessJsonLd();
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd) }}
       />
 
       {/* Hero Section */}

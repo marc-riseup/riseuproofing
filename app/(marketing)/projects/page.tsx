@@ -130,7 +130,7 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
             Residential Roof Replacement &amp; Concrete Tile Relay Projects
           </h2>
           <p className="text-sm text-slate-600 leading-relaxed mb-6">
-            Explore our portfolio of completed residential roofing systems across North County and Greater San Diego. From Owens Corning architectural shingle roof installations in coastal Oceanside to Mediterranean concrete tile relayments in Carlsbad, every project is engineered for Southern California microclimates. We install SBS-modified high-temperature underlayments, continuous ridge ventilation, and heavy-gauge valley flashings backed by 50-year non-prorated manufacturer system warranties.
+            Explore our portfolio of completed residential roofing systems across North County and Greater San Diego. From Owens Corning architectural shingle roof installations in coastal Oceanside to Mediterranean concrete tile relayments in Carlsbad, every project is engineered for Southern California microclimates. We install SBS-modified high-temperature underlayments, continuous ridge ventilation, and heavy-gauge valley flashings backed by 25-year non-prorated manufacturer system warranties.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-bold text-slate-700">
             <div className="flex items-center gap-2 p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
@@ -143,7 +143,7 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
             </div>
             <div className="flex items-center gap-2 p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
               <Icon name="check-circle" className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-              <span>Lifetime Shingle Warranties</span>
+              <span>25-Year Shingle Warranties</span>
             </div>
           </div>
         </div>

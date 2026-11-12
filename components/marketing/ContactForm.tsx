@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Icon } from '@/components/shared/Icon';
 import { PHONE_HREF, PHONE_NUMBER } from '@/lib/utils';
 import CustomSelect from '@/components/shared/CustomSelect';
@@ -12,10 +12,10 @@ export function ContactForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [serviceType, setServiceType] = useState('residential');
   const [turnstileToken, setTurnstileToken] = useState('');
-  const [formStartedAt, setFormStartedAt] = useState<number>(0);
+  const formStartedAtRef = useRef<number>(0);
 
   useEffect(() => {
-    setFormStartedAt(Date.now());
+    formStartedAtRef.current = Date.now();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,7 +35,7 @@ export function ContactForm() {
         business_fax: fd.get('business_fax') || '',
         company_website: fd.get('company_website') || '',
         contact_secondary_email: fd.get('contact_secondary_email') || '',
-        formStartedAt: formStartedAt || Date.now(),
+        formStartedAt: formStartedAtRef.current || Date.now(),
         turnstileToken,
       };
       const res = await fetch('/api/contact', {

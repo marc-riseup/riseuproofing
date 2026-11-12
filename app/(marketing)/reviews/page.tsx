@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Icon, GoogleIcon, YelpIcon } from '@/components/shared/Icon';
-import { buildMetadata, buildReviewJsonLd } from '@/lib/seo/metadata';
+import { buildMetadata, buildReviewJsonLd, serializeJsonLd } from '@/lib/seo/metadata';
 import { getAverageRating, getReviewCount } from '@/lib/data/reviews';
 import { getPublicReviews, getReviewStats } from '@/lib/reviews-server';
 import { Section } from '@/components/shared/Container';
@@ -27,7 +27,7 @@ export default async function ReviewsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(reviewJsonLd) }}
       />
       <Section alternate={false} className="pt-32 sm:pt-36">
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Reviews' }]} />
@@ -213,7 +213,7 @@ export default async function ReviewsPage() {
                   Master Workmanship &amp; Ironclad Warranties
                 </h3>
                 <p>
-                  A great roofing review is earned on the roof, not in an advertising campaign. As an Owens Corning Preferred Contractor and licensed dual-trade specialist (C-39 Roofing and B General Building), our installations are executed to strict manufacturer specifications that qualify for extended 50-year non-prorated system warranties.
+                  A great roofing review is earned on the roof, not in an advertising campaign. As an Owens Corning Preferred Contractor and licensed dual-trade specialist (C-39 Roofing and B General Building), our installations are executed to strict manufacturer specifications that qualify for extended 25-year non-prorated system warranties.
                 </p>
                 <p>
                   We also eliminate finger-pointing during solar detach-and-reset procedures by managing both the photovoltaic array and roofing underlayment in-house. When North County property owners invest in their roofs, they know Rise Up stands behind every nail, bracket, and valley metal installation with our comprehensive workmanship guarantee.

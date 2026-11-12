@@ -19,7 +19,7 @@ export const serviceAreas: ServiceArea[] = [
     seoTitle: 'San Diego Roofing Contractor | 5-Star Roofers | Rise Up',
     seoDescription: '5-star San Diego roofing contractor. Concrete tile relay, shingle replacement, 24/7 leak repairs, and solar roofing across San Diego County. Free estimates.',
     h1: 'Premier Roofing Contractor in San Diego, CA',
-    intro: 'Looking for trusted, 5-star roofing companies in San Diego, CA? Rise Up Roofing & Construction delivers master-grade residential and commercial roofing, emergency roof leak repair, tile underlayment replacement, solar roofing, and custom home additions throughout San Diego County. Backed by California Contractor\'s License #1096492 and Owens Corning Preferred Contractor status, our work includes up to 50-year manufacturer warranties and free, transparent roofing estimates.',
+    intro: 'Looking for trusted, 5-star roofing companies in San Diego, CA? Rise Up Roofing & Construction delivers master-grade residential and commercial roofing, emergency roof leak repair, tile underlayment replacement, solar roofing, and custom home additions throughout San Diego County. Backed by California Contractor\'s License #1096492 and Owens Corning Preferred Contractor status, our work includes up to 25-year manufacturer warranties and free, transparent roofing estimates.',
     neighborhoods: ['Pacific Beach', 'La Jolla', 'North Park', 'Point Loma', 'Ocean Beach', 'Clairemont', 'Mira Mesa', 'Fairbanks Ranch', 'Mission Hills', 'Downtown San Diego', 'Hillcrest', 'Tierrasanta', 'Del Cerro', 'Mission Valley'],
     faqs: [
       {
@@ -57,9 +57,9 @@ export const serviceAreas: ServiceArea[] = [
     name: 'Oceanside',
     county: 'San Diego',
     seoTitle: 'Roofing Company Oceanside CA | Local Roofers | Rise Up',
-    seoDescription: 'Top-rated roofing company in Oceanside, CA. Local headquarters on S El Camino Real. 50-yr tile relay, shingle replacement & 24/7 repairs. Free estimates.',
+    seoDescription: 'Top-rated roofing company in Oceanside, CA. Local headquarters on S El Camino Real. 25-yr tile relay, shingle replacement & 24/7 repairs. Free estimates.',
     h1: 'Premier Roofing Company in Oceanside, CA',
-    intro: 'Headquartered right here in Oceanside on South El Camino Real, Rise Up Roofing & Construction is your premier hometown roofing company in Oceanside. From coastal beach bungalows in South O and historic Townsite homes to tile-roofed residences across Rancho Del Oro and Fire Mountain, our licensed craftsmen provide fast emergency leak response, 50-year synthetic tile relays, solar reroofing, and whole-home exterior additions. Licensed, bonded, and fully insured under California License #1096492.',
+    intro: 'Headquartered right here in Oceanside on South El Camino Real, Rise Up Roofing & Construction is your premier hometown roofing company in Oceanside. From coastal beach bungalows in South O and historic Townsite homes to tile-roofed residences across Rancho Del Oro and Fire Mountain, our licensed craftsmen provide fast emergency leak response, 25-year synthetic tile relays, solar reroofing, and whole-home exterior additions. Licensed, bonded, and fully insured under California License #1096492.',
     neighborhoods: ['Rancho Del Oro', 'Fire Mountain', 'Oceanside Harbor', 'South Oceanside', 'Townsite / Downtown', 'Arrowood', 'Ivey Ranch', 'Ocean Hills', 'MiraCosta', 'Loma Alta'],
     faqs: [
       {
@@ -76,7 +76,7 @@ export const serviceAreas: ServiceArea[] = [
       },
       {
         question: 'How much does a roof replacement cost in Oceanside, CA?',
-        answer: 'A complete residential roof replacement in Oceanside generally ranges between $8,500 and $17,500 for architectural shingles, and $12,000 to $25,000+ for tile roof relayment with 50-year underlayments. We provide 100% free, itemized drone inspections and written proposals before any work begins.',
+        answer: 'A complete residential roof replacement in Oceanside generally ranges between $8,500 and $17,500 for architectural shingles, and $12,000 to $25,000+ for tile roof relayment with 25-year underlayments. We provide 100% free, itemized drone inspections and written proposals before any work begins.',
       },
       {
         question: 'Can you repair broken tiles or localized leaks without replacing the whole roof?',
@@ -204,7 +204,7 @@ export const serviceAreas: ServiceArea[] = [
       },
       {
         question: 'Do you offer tile roof leak repairs and underlayment relays in Poway?',
-        answer: 'Yes. Many homes in Green Valley and Bridlewood feature original 1980s and 1990s concrete tile roofs where the tiles remain excellent but the underlying felt has failed. Our tile relay service replaces the underlayment with lifetime dual-ply synthetic materials, restoring total weather protection.',
+        answer: 'Yes. Many homes in Green Valley and Bridlewood feature original 1980s and 1990s concrete tile roofs where the tiles remain excellent but the underlying felt has failed. Our tile relay service replaces the underlayment with 25-year dual-ply synthetic materials, restoring total weather protection.',
       },
       {
         question: 'How do I schedule a free roof inspection in Poway?',
@@ -217,14 +217,14 @@ export const serviceAreas: ServiceArea[] = [
     name: 'Vista',
     county: 'San Diego',
     seoTitle: 'Vista Roofing Company | Tile Relay & Repairs | Rise Up',
-    seoDescription: 'Top-rated Vista roofing company. 50-year tile underlayment relay, Owens Corning shingles & 24/7 emergency leak repair. Local North County roofers. Free quote.',
+    seoDescription: 'Top-rated Vista roofing company. 25-year tile underlayment relay, Owens Corning shingles & 24/7 emergency leak repair. Local North County roofers. Free quote.',
     h1: 'Premier Roofing Contractor & Roof Repair in Vista, CA',
-    intro: 'Searching for a trusted, 5-star Vista roofing company? Located just minutes away in adjacent Oceanside, Rise Up Roofing & Construction delivers master-grade residential and commercial roofing Vista services throughout Vista, CA. From tile roof relayments in Shadowridge and rural agricultural reroofs in Buena Creek to commercial flat roofs across the Vista Business Park, our licensed C-39 and Class B builders provide rapid leak triage, Title 24 cool-roof shingles, and comprehensive 50-year manufacturer warranties.',
+    intro: 'Searching for a trusted, 5-star Vista roofing company? Located just minutes away in adjacent Oceanside, Rise Up Roofing & Construction delivers master-grade residential and commercial roofing Vista services throughout Vista, CA. From tile roof relayments in Shadowridge and rural agricultural reroofs in Buena Creek to commercial flat roofs across the Vista Business Park, our licensed C-39 and Class B builders provide rapid leak triage, Title 24 cool-roof shingles, and comprehensive 25-year manufacturer warranties.',
     neighborhoods: ['Shadowridge', 'Buena Creek', 'Breeze Hill', 'Foothill', 'Pechstein Reservoir', 'Vista Way', 'Olive', 'Lake San Marcos Border', 'Historic Downtown Vista'],
     faqs: [
       {
         question: 'Why is Rise Up considered the top roofing company in Vista, CA?',
-        answer: 'With our corporate headquarters located immediately next door in North County, our crews provide faster emergency response times, intimate knowledge of Vista building department codes, and certified Owens Corning Preferred Contractor workmanship backed by up to 50-year non-prorated warranties.',
+        answer: 'With our corporate headquarters located immediately next door in North County, our crews provide faster emergency response times, intimate knowledge of Vista building department codes, and certified Owens Corning Preferred Contractor workmanship backed by up to 25-year non-prorated warranties.',
       },
       {
         question: 'How does Vista’s inland climate affect tile and shingle roofs?',
@@ -251,7 +251,7 @@ export const serviceAreas: ServiceArea[] = [
     seoTitle: 'San Marcos Roofing Company | Tile Relay & Repairs | Rise Up',
     seoDescription: 'Premier San Marcos CA roofing contractor. Concrete tile underlayment replacement, Owens Corning cool shingles, and emergency leak repair. Free estimates.',
     h1: 'Premier Roofing Contractor & Roof Repair in San Marcos, CA',
-    intro: 'Located in the heart of inland North County, San Marcos properties endure blistering summer heat, intense ultraviolet exposure, and sudden winter downpours. Rise Up Roofing & Construction delivers master-grade residential and commercial roofing across San Marcos—specializing in 50-year synthetic tile relayments, Title 24 energy-efficient cool roofs, and rapid emergency leak diagnostics. Backed by California License #1096492 and Owens Corning Preferred Contractor certification.',
+    intro: 'Located in the heart of inland North County, San Marcos properties endure blistering summer heat, intense ultraviolet exposure, and sudden winter downpours. Rise Up Roofing & Construction delivers master-grade residential and commercial roofing across San Marcos—specializing in 25-year synthetic tile relayments, Title 24 energy-efficient cool roofs, and rapid emergency leak diagnostics. Backed by California License #1096492 and Owens Corning Preferred Contractor certification.',
     neighborhoods: ['Lake San Marcos', 'San Elijo Hills', 'Twin Oaks Valley', 'Santa Fe Hills', 'Rancho Coronado', 'Discovery Hills', 'Coronado Hills', 'Richmar'],
     faqs: [
       {
@@ -264,7 +264,7 @@ export const serviceAreas: ServiceArea[] = [
       },
       {
         question: 'What is the average cost of a roof replacement in San Marcos, CA?',
-        answer: 'A residential roof replacement in San Marcos typically ranges from $8,500 to $17,000 for architectural shingles, and $11,500 to $25,000+ for a full concrete tile lift-and-reset with lifetime synthetic underlayment. We provide 100% free drone inspections and upfront, itemized estimates.',
+        answer: 'A residential roof replacement in San Marcos typically ranges from $8,500 to $17,000 for architectural shingles, and $11,500 to $25,000+ for a full concrete tile lift-and-reset with 25-year synthetic underlayment. We provide 100% free drone inspections and upfront, itemized estimates.',
       },
       {
         question: 'Do you offer solar detach and reset in San Marcos?',
@@ -288,7 +288,7 @@ export const serviceAreas: ServiceArea[] = [
     faqs: [
       {
         question: 'How do you preserve historic terracotta tiles during a La Jolla tile relay?',
-        answer: 'Our signature "Tile Lift and Reset" service carefully detaches and numbers your existing Spanish terracotta tiles on-site. We strip away deteriorated 20-year felt paper, repair any coastal plywood dry rot, and install commercial-grade dual-ply high-temperature synthetic underlayment paired with marine-grade copper flashings. We then reinstall your authentic tiles, preserving their irreplaceable architectural patina while guaranteeing lifetime waterproofing.',
+        answer: 'Our signature "Tile Lift and Reset" service carefully detaches and numbers your existing Spanish terracotta tiles on-site. We strip away deteriorated 20-year felt paper, repair any coastal plywood dry rot, and install commercial-grade dual-ply high-temperature synthetic underlayment paired with marine-grade copper flashings. We then reinstall your authentic tiles, preserving their irreplaceable architectural patina while backed by a 25-year waterproofing warranty.',
       },
       {
         question: 'How does coastal salt air affect La Jolla roofing metal and fasteners?',
@@ -347,7 +347,7 @@ export const serviceAreas: ServiceArea[] = [
     seoTitle: 'Deck Builder Rancho San Diego | Trex® Decks & Patio Covers',
     seoDescription: 'Top deck builder in Rancho San Diego. Certified Trex® composite decks, hillside view balconies, patio covers & tile roofing. Free 3D design: (760) 622-1230.',
     h1: 'Premier Deck Builder & Roofing Contractor in Rancho San Diego, CA',
-    intro: 'Nestled in East County’s picturesque foothills, Rancho San Diego is known for its spacious residential properties, sunny microclimates, and vibrant outdoor California lifestyle. If you are searching for a premier deck builder in Rancho San Diego or a trusted roofing contractor, Rise Up Roofing & Construction delivers master craftsmanship. From custom Trex composite decks and covered patio pavilions to 50-year concrete tile underlayment relays and Owens Corning cool-roof replacements, our licensed builders bring your vision to life.',
+    intro: 'Nestled in East County’s picturesque foothills, Rancho San Diego is known for its spacious residential properties, sunny microclimates, and vibrant outdoor California lifestyle. If you are searching for a premier deck builder in Rancho San Diego or a trusted roofing contractor, Rise Up Roofing & Construction delivers master craftsmanship. From custom Trex composite decks and covered patio pavilions to 25-year concrete tile underlayment relays and Owens Corning cool-roof replacements, our licensed builders bring your vision to life.',
     neighborhoods: ['Cuyamaca College Area', 'Avocado Highlands', 'Hilton Head', 'Steele Canyon Border', 'Cottonwood Golf Area', 'Monte Vista'],
     faqs: [
       {
@@ -505,7 +505,7 @@ export const serviceAreas: ServiceArea[] = [
     faqs: [
       {
             "question": "Do you specialize in luxury tile roofs in Bonsall?",
-            "answer": "Yes, we have extensive experience lifting and resetting concrete and Spanish clay tiles with modern 50-year synthetic underlayment."
+            "answer": "Yes, we have extensive experience lifting and resetting concrete and Spanish clay tiles with modern 25-year synthetic underlayment."
       },
       {
             "question": "Can you match existing discontinued tiles in Bonsall?",
@@ -677,7 +677,7 @@ export const serviceAreas: ServiceArea[] = [
       },
       {
             "question": "How long does a tile roof underlayment last in Santee?",
-            "answer": "Traditional asphalt felt typically lasts 15 to 20 years in Santee’s heat before becoming brittle. We replace it with premium synthetic underlayment rated for 50+ years."
+            "answer": "Traditional asphalt felt typically lasts 15 to 20 years in Santee’s heat before becoming brittle. We replace it with premium synthetic underlayment rated for 25+ years."
       },
       {
             "question": "Do you provide roof repairs for minor leaks in Santee?",
@@ -769,7 +769,7 @@ export const serviceAreas: ServiceArea[] = [
     faqs: [
       {
             "question": "What is the best roofing material for Lemon Grove homes?",
-            "answer": "Owens Corning architectural cool-roof shingles offer the ideal combination of affordability, energy efficiency, and 50-year warranty coverage."
+            "answer": "Owens Corning architectural cool-roof shingles offer the ideal combination of affordability, energy efficiency, and 25-year warranty coverage."
       },
       {
             "question": "Do you repair leaky flat patio and garage roofs in Lemon Grove?",
@@ -793,7 +793,7 @@ export const serviceAreas: ServiceArea[] = [
     faqs: [
       {
         question: 'How do you preserve original Spanish clay tile during a Fairbanks Ranch re-roofing?',
-        answer: 'Our signature "Tile Lift and Reset" service carefully detaches and numbers your existing clay tiles on-site. We remove the failed 20-year felt underlayment, repair any substrate dry rot, and install commercial-grade dual-ply high-temperature synthetic underlayment with custom pre-bent copper flashings. We then reinstall your original historic tiles, preserving the authentic architectural patina while delivering lifetime waterproofing.',
+        answer: 'Our signature "Tile Lift and Reset" service carefully detaches and numbers your existing clay tiles on-site. We remove the failed 20-year felt underlayment, repair any substrate dry rot, and install commercial-grade dual-ply high-temperature synthetic underlayment with custom pre-bent copper flashings. We then reinstall your original historic tiles, preserving the authentic architectural patina while delivering 25-year warrantied waterproofing.',
       },
       {
         question: 'Do you comply with Rancho Santa Fe Association Art Jury & HOA requirements?',
@@ -845,7 +845,7 @@ export const serviceAreas: ServiceArea[] = [
     faqs: [
       {
             "question": "Why are tile roofs failing in Temecula master-planned communities?",
-            "answer": "Homes built 15 to 25 years ago in Redhawk, Harveston, and Paloma del Sol used standard asphalt felt that dries out beneath tiles under Temecula’s hot sun. Our tile relay replaces the paper with 50-year synthetic underlayment."
+            "answer": "Homes built 15 to 25 years ago in Redhawk, Harveston, and Paloma del Sol used standard asphalt felt that dries out beneath tiles under Temecula’s hot sun. Our tile relay replaces the paper with 25-year synthetic underlayment."
       },
       {
             "question": "Do you service commercial properties and wineries in Temecula?",

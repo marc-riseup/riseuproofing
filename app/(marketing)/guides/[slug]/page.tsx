@@ -7,7 +7,8 @@ import {
   buildMetadata,
   buildTechArticleJsonLd,
   buildFAQJsonLd,
-  buildLocalBusinessJsonLd,
+  buildOrganizationRef,
+  serializeJsonLd,
 } from '@/lib/seo/metadata';
 import { getGuideBySlug, getAllGuideSlugs, GUIDES } from '@/lib/data/guides';
 import { Section, Container } from '@/components/shared/Container';
@@ -59,7 +60,7 @@ export default async function GuideDetailPage({ params }: PageProps) {
   });
 
   const faqJsonLd = guide.faqs.length > 0 ? buildFAQJsonLd(guide.faqs) : null;
-  const localBusinessJsonLd = buildLocalBusinessJsonLd(stats);
+  const orgJsonLd = { '@context': 'https://schema.org', ...buildOrganizationRef(stats) };
 
   const otherGuides = GUIDES.filter((g) => g.slug !== guide.slug).slice(0, 3);
 
@@ -67,17 +68,17 @@ export default async function GuideDetailPage({ params }: PageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleJsonLd) }}
       />
       {faqJsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd) }}
         />
       )}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(orgJsonLd) }}
       />
 
       {/* Hero Header */}

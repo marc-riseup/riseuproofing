@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/shared/Icon';
-import { PHONE_HREF, cn } from '@/lib/utils';
+import { clsx as cn } from 'clsx';
+import { PHONE_HREF } from '@/lib/utils';
 
 export function StickyCTA() {
   const pathname = usePathname();
@@ -26,11 +27,12 @@ export function StickyCTA() {
   const handleEstimateClick = (e: React.MouseEvent) => {
     if (isHome) {
       e.preventDefault();
+      const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
       const estimator = document.getElementById('hero-estimator');
       if (estimator) {
-        estimator.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        estimator.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
       } else {
-        window.scrollTo({ top: 380, behavior: 'smooth' });
+        window.scrollTo({ top: 380, behavior: reduced ? 'auto' : 'smooth' });
       }
     }
   };
@@ -38,136 +40,108 @@ export function StickyCTA() {
   return (
     <nav
       aria-label="Mobile Bottom Navigation"
-      className="fixed bottom-0 inset-x-0 z-50 md:hidden px-3 pb-[max(0.85rem,env(safe-area-inset-bottom))] pt-2 pointer-events-none select-none"
+      className="fixed bottom-0 inset-x-0 z-50 md:hidden px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 pointer-events-none select-none"
     >
-      <div className="pointer-events-auto max-w-[430px] mx-auto bg-slate-900/95 dark:bg-[#07131e]/96 backdrop-blur-3xl border border-white/20 rounded-[24px] shadow-[0_16px_44px_rgba(0,0,0,0.55),0_0_0_1px_rgba(255,255,255,0.1),inset_0_1px_1px_rgba(255,255,255,0.2)] px-2.5 py-2 flex items-center justify-between gap-1.5">
-        
+      <div className="pointer-events-auto max-w-[430px] mx-auto bg-[#0B1B2B]/96 border border-white/16 rounded-[24px] shadow-[0_16px_40px_-8px_rgba(11,27,43,0.6)] px-2 py-1.5 flex items-center justify-between gap-1">
         {/* Tab 1: Home */}
         <Link
           href="/"
-          className="flex-1 flex flex-col items-center justify-center active:scale-90 transition-transform duration-150 group cursor-pointer"
+          prefetch={false}
+          className={cn(
+            'flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 px-1 rounded-[16px] transition-colors',
+            isHome ? 'bg-white/10 text-[#FFFFFF]' : 'text-[#C8DDF0] hover:text-[#FFFFFF]'
+          )}
         >
-          <div
+          <Icon
+            name="home"
+            className={cn('w-5 h-5', isHome ? 'text-[#2F9FE3]' : 'text-[#C8DDF0]')}
+          />
+          <span
             className={cn(
-              'flex flex-col items-center justify-center w-full min-h-[48px] py-1 px-1 rounded-2xl transition-all duration-200',
-              isHome ? 'bg-white/12 text-white shadow-xs' : 'text-slate-400 hover:text-slate-200'
+              'text-xs mt-1 leading-none',
+              isHome ? 'font-bold text-[#FFFFFF]' : 'font-medium text-[#C8DDF0]'
             )}
           >
-            <Icon name="home"
-              className={cn(
-                'w-5 h-5 transition-transform duration-200',
-                isHome ? 'scale-110 stroke-[2.3] text-[#38BDF8]' : 'stroke-[1.8] group-hover:scale-105'
-              )}
-            />
-            <span
-              className={cn(
-                'text-[10.5px] mt-1 tracking-tight leading-none',
-                isHome ? 'font-bold text-white' : 'font-medium text-slate-400'
-              )}
-            >
-              Home
-            </span>
-            {isHome && <span className="w-1 h-1 rounded-full bg-[#38BDF8] mt-1" />}
-          </div>
+            Home
+          </span>
         </Link>
 
         {/* Tab 2: Services */}
         <Link
           href="/services"
-          className="flex-1 flex flex-col items-center justify-center active:scale-90 transition-transform duration-150 group cursor-pointer"
+          prefetch={false}
+          className={cn(
+            'flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 px-1 rounded-[16px] transition-colors',
+            isServices ? 'bg-white/10 text-[#FFFFFF]' : 'text-[#C8DDF0] hover:text-[#FFFFFF]'
+          )}
         >
-          <div
+          <Icon
+            name="wrench"
+            className={cn('w-5 h-5', isServices ? 'text-[#2F9FE3]' : 'text-[#C8DDF0]')}
+          />
+          <span
             className={cn(
-              'flex flex-col items-center justify-center w-full min-h-[48px] py-1 px-1 rounded-2xl transition-all duration-200',
-              isServices ? 'bg-white/12 text-white shadow-xs' : 'text-slate-400 hover:text-slate-200'
+              'text-xs mt-1 leading-none',
+              isServices ? 'font-bold text-[#FFFFFF]' : 'font-medium text-[#C8DDF0]'
             )}
           >
-            <Icon name="wrench"
-              className={cn(
-                'w-5 h-5 transition-transform duration-200',
-                isServices ? 'scale-110 stroke-[2.3] text-[#38BDF8]' : 'stroke-[1.8] group-hover:scale-105'
-              )}
-            />
-            <span
-              className={cn(
-                'text-[10.5px] mt-1 tracking-tight leading-none',
-                isServices ? 'font-bold text-white' : 'font-medium text-slate-400'
-              )}
-            >
-              Services
-            </span>
-            {isServices && <span className="w-1 h-1 rounded-full bg-[#38BDF8] mt-1" />}
-          </div>
+            Services
+          </span>
         </Link>
 
         {/* Tab 3: Reviews */}
         <Link
           href="/reviews"
-          className="flex-1 flex flex-col items-center justify-center active:scale-90 transition-transform duration-150 group cursor-pointer"
+          prefetch={false}
+          className={cn(
+            'flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 px-1 rounded-[16px] transition-colors',
+            isReviews ? 'bg-white/10 text-[#FFFFFF]' : 'text-[#C8DDF0] hover:text-[#FFFFFF]'
+          )}
         >
-          <div
+          <Icon
+            name="star"
             className={cn(
-              'flex flex-col items-center justify-center w-full min-h-[48px] py-1 px-1 rounded-2xl transition-all duration-200',
-              isReviews ? 'bg-white/12 text-white shadow-xs' : 'text-slate-400 hover:text-slate-200'
+              'w-5 h-5',
+              isReviews ? 'fill-[#2F9FE3] text-[#2F9FE3]' : 'text-[#C8DDF0]'
+            )}
+          />
+          <span
+            className={cn(
+              'text-xs mt-1 leading-none',
+              isReviews ? 'font-bold text-[#FFFFFF]' : 'font-medium text-[#C8DDF0]'
             )}
           >
-            <Icon name="star"
-              className={cn(
-                'w-5 h-5 transition-transform duration-200',
-                isReviews ? 'fill-[#38BDF8] text-[#38BDF8] scale-110' : 'text-slate-400 group-hover:scale-105'
-              )}
-            />
-            <span
-              className={cn(
-                'text-[10.5px] mt-1 tracking-tight leading-none',
-                isReviews ? 'font-bold text-white' : 'font-medium text-slate-400'
-              )}
-            >
-              Reviews
-            </span>
-            {isReviews && <span className="w-1 h-1 rounded-full bg-[#38BDF8] mt-1" />}
-          </div>
+            Reviews
+          </span>
         </Link>
 
-        {/* Tab 4: Playful Direct Call Action */}
+        {/* Tab 4: Direct Call */}
         <a
           href={PHONE_HREF}
-          className="flex-1 flex flex-col items-center justify-center active:scale-90 transition-transform duration-150 group cursor-pointer"
           aria-label="Call Rise Up Roofing"
+          className="flex-1 flex flex-col items-center justify-center min-h-[48px] py-1 px-1 rounded-[16px] text-[#10B981] hover:bg-white/[0.06] transition-colors"
         >
-          <div className="flex flex-col items-center justify-center w-full min-h-[48px] py-1 px-1 rounded-2xl hover:bg-emerald-500/10 transition-all duration-200">
-            <Icon name="phone" className="w-5 h-5 text-emerald-400 stroke-[2.3] transition-transform group-hover:rotate-12" />
-            <span className="text-[10.5px] mt-1 tracking-tight leading-none font-bold text-emerald-400">
-              Call
-            </span>
-            <span className="w-1 h-1 rounded-full bg-emerald-400/70 mt-1" />
-          </div>
+          <Icon name="phone" className="w-5 h-5 text-[#10B981]" />
+          <span className="text-xs mt-1 leading-none font-bold text-[#10B981]">Call</span>
         </a>
 
-        {/* Tab 5: Juicy, Chunky Estimate Action Pill */}
+        {/* Tab 5: Signal Crimson Estimate Pill */}
         <Link
           href={isHome ? '#hero-estimator' : '/contact'}
+          prefetch={false}
           onClick={handleEstimateClick}
-          className="flex-shrink-0 active:scale-92 transition-transform duration-150 cursor-pointer pl-0.5"
           aria-label="Get Free Estimate"
+          className={cn(
+            'shrink-0 min-h-[48px] px-3.5 py-2.5 rounded-[16px] bg-[#C92D20] hover:opacity-95 flex items-center gap-1.5 shadow-[0_8px_20px_-6px_rgba(201,45,32,0.5)] transition-opacity',
+            isContact && 'ring-2 ring-white/50'
+          )}
         >
-          <div
-            className={cn(
-              'px-4 py-2.5 min-h-[48px] rounded-2xl font-bold flex items-center gap-2 shadow-[0_6px_22px_rgba(46,155,240,0.55),inset_0_1px_1px_rgba(255,255,255,0.45)] border border-white/25 transition-all',
-              isContact
-                ? 'bg-[#1C88DD] text-white ring-2 ring-white/40'
-                : 'bg-gradient-to-r from-[#2E9BF0] via-[#38BDF8] to-[#1C88DD] hover:brightness-110 text-white'
-            )}
-          >
-            <Icon name="sparkles" className="w-4 h-4 text-white animate-pulse flex-shrink-0" />
-            <span className="text-[11.5px] font-black tracking-wider uppercase text-white whitespace-nowrap">
-              Estimate
-            </span>
-          </div>
+          <span className="font-[family-name:var(--font-display)] text-xs font-extrabold uppercase tracking-[0.04em] text-[#FFFFFF] whitespace-nowrap">
+            Estimate
+          </span>
+          <Icon name="arrow-right" className="w-3.5 h-3.5 text-[#FFFFFF] shrink-0" />
         </Link>
-
       </div>
     </nav>
   );
 }
-

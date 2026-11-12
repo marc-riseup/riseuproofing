@@ -8,6 +8,9 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         '/api/',
         '/admin/',
+        '/developer/',
+        '/docs/',
+        '/openapi.json',
         '/inspection/',
         '/proposal/',
         '/warranty/',

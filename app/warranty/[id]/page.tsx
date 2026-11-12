@@ -58,8 +58,8 @@ export default function WarrantyCertificatePage({
         }
         const data = await res.json();
         setWarranty(data.warranty);
-      } catch (err: any) {
-        setError(err.message || 'Error loading warranty certificate');
+      } catch (err: unknown) {
+        setError((err instanceof Error ? err.message : '') || 'Error loading warranty certificate');
       } finally {
         setLoading(false);
       }
@@ -221,7 +221,7 @@ export default function WarrantyCertificatePage({
               <div className="flex items-start gap-2">
                 <CheckCircle2 size={16} className="text-emerald-400 flex-shrink-0 mt-0.5" />
                 <span>
-                  <strong>50-Year Non-Prorated Material Protection:</strong> Covers manufacturing defects in shingles, starter strips, and ridge caps.
+                  <strong>25-Year Non-Prorated Material Protection:</strong> Covers manufacturing defects in shingles, starter strips, and ridge caps.
                 </span>
               </div>
 

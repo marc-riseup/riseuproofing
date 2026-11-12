@@ -59,8 +59,8 @@ export default function HomeownerReviewPage({
         if (data.review.feedback) {
           setFeedback(data.review.feedback);
         }
-      } catch (err: any) {
-        setError(err.message || 'Failed to load review request.');
+      } catch (err: unknown) {
+        setError((err instanceof Error ? err.message : '') || 'Failed to load review request.');
       } finally {
         setLoading(false);
       }
@@ -91,8 +91,8 @@ export default function HomeownerReviewPage({
         // Direct to Google Business review link
         window.open('https://g.page/r/riseuproofing/review', '_blank');
       }
-    } catch (err: any) {
-      alert(err.message || 'Error submitting feedback.');
+    } catch (err: unknown) {
+      alert((err instanceof Error ? err.message : '') || 'Error submitting feedback.');
     } finally {
       setSubmitting(false);
     }
@@ -100,7 +100,7 @@ export default function HomeownerReviewPage({
 
   if (loading) {
     return (
-      <div className="site-page-shell min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-center">
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-center">
         <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-3 animate-spin">
           <Sparkles size={28} />
         </div>
@@ -112,7 +112,7 @@ export default function HomeownerReviewPage({
 
   if (error || !review) {
     return (
-      <div className="site-page-shell min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-center">
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-center">
         <div className="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mb-3">
           <AlertTriangle size={28} />
         </div>
@@ -133,7 +133,7 @@ export default function HomeownerReviewPage({
   const is5Star = selectedRating === 5;
 
   return (
-    <div className="site-page-shell min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 flex flex-col items-center justify-center">
       {/* Container */}
       <div className="w-full max-w-xl bg-slate-900 border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
         {/* Header Branding */}

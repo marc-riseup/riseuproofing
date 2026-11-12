@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Icon } from '@/components/shared/Icon';
-import { buildMetadata, buildLocalBusinessJsonLd } from '@/lib/seo/metadata';
+import { buildMetadata } from '@/lib/seo/metadata';
 import { GUIDES } from '@/lib/data/guides';
 import { Section, Container } from '@/components/shared/Container';
 import { SectionHeading } from '@/components/shared/SectionHeading';
@@ -17,16 +17,8 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function GuidesIndexPage() {
-  const localBusinessJsonLd = buildLocalBusinessJsonLd();
-
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
-      />
-
-      <Section className="pt-32 sm:pt-36 pb-20">
+    <Section className="pt-32 sm:pt-36 pb-20">
         <Container>
           <Breadcrumbs
             items={[
@@ -162,7 +154,6 @@ export default function GuidesIndexPage() {
             </div>
           </div>
         </Container>
-      </Section>
-    </>
+    </Section>
   );
 }

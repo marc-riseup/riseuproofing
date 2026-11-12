@@ -41,7 +41,7 @@ export const GUIDES: Guide[] = [
     seoDescription: 'Discover why San Diego homeowners choose tile roof relay (lift and reset) over full replacement. Compare costs, underlayment lifespans, and 50% savings.',
     summary:
       'Concrete and Spanish clay roof tiles can last 50 to 100 years, but the asphalt felt underlayment beneath them deteriorates in just 18 to 25 years. Learn how a tile relay restores watertight security at half the cost of replacement.',
-    coverImage: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=1200&q=80',
+    coverImage: '/images/services/tile-roofing.jpg',
     category: 'Residential Roofing',
     publishedAt: '2026-01-10T08:00:00Z',
     updatedAt: '2026-09-01T10:00:00Z',
@@ -83,7 +83,7 @@ Once new 26-gauge galvanized or copper flashings, eave bird stops, and elevated 
         highlights: [
           'Preserves 85% to 95% of your original, structurally sound tiles.',
           'Upgrades the waterproof membrane from fragile felt to commercial-grade synthetic rubberized asphalt.',
-          'Restores roof life expectancy by 30 to 50 years at a fraction of full replacement pricing.',
+          'Restores roof life expectancy by 25+ years at a fraction of full replacement pricing.',
         ],
       },
       {
@@ -95,7 +95,7 @@ On an average 2,800-square-foot San Diego residence:
 - **Full Tile Replacement:** Involves purchasing thousands of pounds of new concrete or clay tiles, freight charges, disposal fees for heavy old tiles, and complete labor. Total cost typically ranges from **$28,000 to $52,000+**.
 - **Tile Relay (Lift & Reset):** Eliminates tile material purchases and landfill weight charges. Total investment typically ranges from **$14,000 to $24,000**.
 
-Homeowners typically save between **40% and 55%** while receiving the exact same 30-year to lifetime waterproof warranty on the underlying system.`,
+Homeowners typically save between **40% and 55%** while receiving the exact same 25-year non-prorated waterproof warranty on the underlying system.`,
       },
       {
         id: 'when-to-relay',
@@ -255,7 +255,7 @@ Under IRS guidelines:
     seoDescription: 'Comprehensive guide to built-up roofing (BUR) and modified bitumen in San Diego. Multi-ply tar and gravel layers, repair procedures, and maintenance.',
     summary:
       'What is built up roofing? Explore the multi-ply architecture of traditional BUR and modern polymer-modified bitumen. Learn how redundant asphalt plies deliver decades of puncture-resistant performance.',
-    coverImage: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f8?auto=format&fit=crop&w=1200&q=80',
+    coverImage: '/images/services/modified-bitumen.jpg',
     category: 'Commercial Roofing',
     publishedAt: '2026-02-05T08:00:00Z',
     updatedAt: '2026-09-03T09:00:00Z',
@@ -654,7 +654,7 @@ Follow this documentation checklist before cleaning up:
     slug: 'commercial-tpo-vs-pvc-roofing-san-diego',
     title: 'Commercial TPO vs PVC Roofing in San Diego: The Engineering Comparison',
     seoTitle: 'TPO vs PVC Commercial Roofing San Diego | Title 24 & Cost Guide',
-    seoDescription: 'Compare commercial TPO vs PVC single-ply roofing in San Diego. Thermal reflectivity, chemical resistance, California Title 24 SRI cool roof compliance & 30-yr NDL warranties.',
+    seoDescription: 'Compare commercial TPO vs PVC single-ply roofing in San Diego. Thermal reflectivity, chemical resistance, California Title 24 SRI cool roof compliance & 25-yr NDL warranties.',
     summary: 'Detailed engineering breakdown of TPO vs PVC single-ply membranes for San Diego commercial warehouses, retail centers, restaurant properties, and industrial facilities.',
     coverImage: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
     category: 'Commercial Roofing',
@@ -671,7 +671,7 @@ Follow this documentation checklist before cleaning up:
       { id: 'title-24-cool-roofs', title: 'California Title 24 Solar Reflectance (SRI) Mandates' },
       { id: 'chemical-grease-resistance', title: 'Chemical, Grease & Acid Resistance for Industrial Uses' },
       { id: 'welding-seam-integrity', title: 'Hot-Air Seam Welding: Robotic Varimat vs Hand Welds' },
-      { id: 'ndl-warranties', title: '20 to 30-Year NDL (No Dollar Limit) Manufacturer Coverage' },
+      { id: 'ndl-warranties', title: '20 to 25-Year NDL (No Dollar Limit) Manufacturer Coverage' },
       { id: 'cost-lifecycle-roi', title: 'Installed Cost per Sq Ft & 30-Year Lifecycle Analysis' },
     ],
     sections: [
@@ -724,17 +724,17 @@ In peel tests, properly hot-air welded seams exhibit "film tearing" bond strengt
       },
       {
         id: 'ndl-warranties',
-        title: '20 to 30-Year NDL (No Dollar Limit) Manufacturer Coverage',
+        title: '20 to 25-Year NDL (No Dollar Limit) Manufacturer Coverage',
         content: `For commercial property owners and institutional real estate asset managers, the true value of a commercial roof installation is the manufacturer warranty.
 
-As certified commercial installers for Carlisle SynTec, GAF Commercial, and Elevate (Firestone), Rise Up Roofing provides manufacturer-inspected No Dollar Limit (NDL) warranties ranging from 20, 25, to 30 years.
+As certified commercial installers for Carlisle SynTec, GAF Commercial, and Elevate (Firestone), Rise Up Roofing provides manufacturer-inspected No Dollar Limit (NDL) warranties ranging from 20 to 25 years.
 
 Key benefits of an NDL warranty:
 - **Zero Financial Cap:** Unlike standard prorated material warranties that decline in value each year, an NDL warranty pays 100% of the cost to repair roof leaks, regardless of cost.
 - **Both Labor & Materials Included:** Covers both defective membrane materials and certified contractor installation labor.
 - **Rigorous Third-Party Inspection:** Prior to warranty issuance, a technical field inspector from Carlisle or GAF conducts a comprehensive roof audit, verifying seam welds, flashing details, and fastening densities.`,
         highlights: [
-          'NDL warranties provide complete balance-sheet protection with zero out-of-pocket caps for 20 to 30 years.',
+          'NDL warranties provide complete balance-sheet protection with zero out-of-pocket caps for 20 to 25 years.',
           'Requires certified contractor status and third-party manufacturer quality sign-off.',
           'Fully transferable to new building purchasers, enhancing property valuation during sales.',
         ],
@@ -744,7 +744,7 @@ Key benefits of an NDL warranty:
         title: 'Installed Cost per Sq Ft & 30-Year Lifecycle Analysis',
         content: `In Southern California commercial construction:
 - **60-Mil TPO System:** Typically $6.50 to $10.50 per square foot installed (including mechanically fastened insulation and single-ply membrane).
-- **80-Mil Extreme TPO:** Typically $8.00 to $12.50 per square foot, providing enhanced puncture resistance and 30-year NDL eligibility.
+- **80-Mil Extreme TPO:** Typically $8.00 to $12.50 per square foot, providing enhanced puncture resistance and 25-year NDL eligibility.
 - **60-to-80-Mil PVC System:** Typically $9.50 to $14.50 per square foot due to higher raw chemical resin costs.
 - **Flute-Fill Metal Retrofit:** For aging corrugated metal warehouses, installing flute-fill polyiso insulation and an overlay TPO membrane costs $5.50 to $8.50/sq ft, saving 40% compared to complete metal tear-offs.`,
       },
@@ -752,7 +752,7 @@ Key benefits of an NDL warranty:
     faqs: [
       {
         question: 'Which is better for a San Diego warehouse roof: TPO or PVC?',
-        answer: 'For commercial warehouses and distribution centers without restaurant grease exhaust, 60-mil or 80-mil TPO is generally the superior choice. It provides exceptional tensile strength, outstanding Title 24 cool-roof energy savings, and 20-to-30 year NDL warranties at a lower cost than PVC.',
+        answer: 'For commercial warehouses and distribution centers without restaurant grease exhaust, 60-mil or 80-mil TPO is generally the superior choice. It provides exceptional tensile strength, outstanding Title 24 cool-roof energy savings, and 20-to-25 year NDL warranties at a lower cost than PVC.',
       },
       {
         question: 'Can you install TPO or PVC over an existing flat roof without tearing it off?',
@@ -834,7 +834,7 @@ In these designated fire zones, traditional softwoods like pine or untreated ced
 
 Comparison of materials in Rancho San Diego:
 - **Natural Redwood:** Requires power washing, stripping, sanding, and restaining every 12 to 18 months. Within 4 to 7 years, redwood boards exposed to direct East County sun begin to check, warp, cup, and develop painful splinters. Total 20-year maintenance costs frequently exceed the initial build price.
-- **Trex Transcend Composite:** Engineered with a 95% recycled core encapsulated in a protective polymer shell. Trex never splinters, warps, or rots, and requires zero sanding, staining, or chemical sealing—just an occasional rinse with soapy water. It is backed by a 25-to-50 year fade and stain manufacturer warranty.`,
+- **Trex Transcend Composite:** Engineered with a 95% recycled core encapsulated in a protective polymer shell. Trex never splinters, warps, or rots, and requires zero sanding, staining, or chemical sealing—just an occasional rinse with soapy water. It is backed by a 25-year fade and stain manufacturer warranty.`,
       },
       {
         id: 'hillside-caissons',
@@ -895,8 +895,8 @@ Because Rise Up holds both a C-39 Roofing License and a Class B General Building
     title: 'Coastal Tile Roof Underlayment: Why 20-Year Leaks Happen & How to Fix Them',
     seoTitle: 'Coastal Tile Roof Underlayment Replacement Oceanside & Carlsbad',
     seoDescription: 'Why tile roofs in Oceanside, Carlsbad & Encinitas leak after 20 years. Learn how marine layer moisture and coastal heat bake felt paper, and how tile relays save 50%.',
-    summary: 'An in-depth technical analysis of why coastal North County San Diego tile roofs develop hidden underlayment leaks, and how an engineered lift-and-relay restores 30+ years of watertight protection.',
-    coverImage: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=1200&q=80',
+    summary: 'An in-depth technical analysis of why coastal North County San Diego tile roofs develop hidden underlayment leaks, and how an engineered lift-and-relay restores 25+ years of watertight protection.',
+    coverImage: '/images/services/tile-roofing.jpg',
     category: 'Residential Roofing',
     publishedAt: '2026-04-01T08:00:00Z',
     updatedAt: '2026-10-11T12:00:00Z',
@@ -941,13 +941,13 @@ The actual waterproof envelope of your home is the underlayment installed over t
       {
         id: 'synthetic-vs-peel-stick',
         title: 'Modern SBS Modified Bitumen & Synthetic Underlayments',
-        content: `When Rise Up performs a tile roof restoration, we replace failed organic felt with engineered commercial-grade underlayments designed for 50-year longevity:
+        content: `When Rise Up performs a tile roof restoration, we replace failed organic felt with engineered commercial-grade underlayments designed for 25+ year longevity:
 - **Dual-Layer High-Temp Synthetic Underlayment:** Engineered with woven polymer scrims and UV-stabilized coatings. Synthetic underlayments do not rot, dry out, or crack, and maintain elasticity under 240°F thermal loads.
 - **SBS Self-Adhering Modified Bitumen (Peel-and-Stick):** For low-pitch tile roofs (under 4:12) or critical eaves and valleys, rubberized asphalt peel-and-stick membranes adhere directly to wood sheathing. When tile fasteners penetrate the membrane, the rubberized SBS asphalt seals tightly around the nail shank, creating an impenetrable gasket seal.`,
         highlights: [
           'Synthetic underlayment will not crack, rot, or degrade under coastal humidity and UV heat.',
           'Self-adhering SBS modified bitumen creates gasket seals around fastener penetrations.',
-          'Provides 30-year to lifetime non-prorated waterproof warranties.',
+          'Provides 25-year non-prorated waterproof warranties.',
         ],
       },
       {
@@ -985,7 +985,7 @@ Rise Up provides integrated solar detach-and-reset with tile underlayment relays
     faqs: [
       {
         question: 'How much does a tile roof lift and relay cost in Oceanside and Carlsbad?',
-        answer: 'A tile roof relay typically costs between $5.50 and $9.50 per square foot, ranging from $14,000 to $24,000 for a standard 2,500 sq ft home. This saves homeowners 40% to 55% compared to purchasing new tiles, while delivering the same 30-year to lifetime waterproof security.',
+        answer: 'A tile roof relay typically costs between $5.50 and $9.50 per square foot, ranging from $14,000 to $24,000 for a standard 2,500 sq ft home. This saves homeowners 40% to 55% compared to purchasing new tiles, while delivering the same 25-year non-prorated waterproof security.',
       },
       {
         question: 'How long does a tile roof lift and relay take to complete?',

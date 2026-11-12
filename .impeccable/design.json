@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-10T22:40:00Z",
+  "title": "Design System: Rise Up Roofing & Construction",
+  "extensions": {
+    "colorMeta": {
+      "signal-red": {
+        "role": "primary",
+        "displayName": "Signal Red-Orange",
+        "canonical": "#E5392B",
+        "tonalRamp": ["#3B0A06", "#63120B", "#8F1C13", "#B8251A", "#E5392B", "#F06A5E", "#F8A8A0", "#FDECEB"]
+      },
+      "signal-red-deep": {
+        "role": "primary",
+        "displayName": "Deep Signal Red",
+        "canonical": "#CC2E23",
+        "tonalRamp": ["#350805", "#590F0A", "#821710", "#A9241B", "#CC2E23", "#E45D53", "#F39E97", "#FCE9E7"]
+      },
+      "signal-crimson": {
+        "role": "primary",
+        "displayName": "Survey Crimson",
+        "canonical": "#C92D20",
+        "tonalRamp": ["#340804", "#580F09", "#80170E", "#AD2317", "#C92D20", "#E25E53", "#F2A099", "#FCEAE8"]
+      },
+      "solar-gold": {
+        "role": "secondary",
+        "displayName": "Solar Gold",
+        "canonical": "#FFC700",
+        "tonalRamp": ["#3A2B00", "#614900", "#8F6D00", "#C99700", "#FFC700", "#FFD648", "#FFE58F", "#FFF8DB"]
+      },
+      "solar-amber": {
+        "role": "secondary",
+        "displayName": "Solar Amber",
+        "canonical": "#C99700",
+        "tonalRamp": ["#332500", "#574000", "#7D5D00", "#A37A00", "#C99700", "#E3B529", "#F3D678", "#FCF4D9"]
+      },
+      "pacific-cerulean": {
+        "role": "tertiary",
+        "displayName": "Pacific Cerulean",
+        "canonical": "#2F9FE3",
+        "tonalRamp": ["#082336", "#0E3D5C", "#146399", "#1878B8", "#2F9FE3", "#64B9EC", "#A3D7F5", "#E6F4FC"]
+      },
+      "survey-blue": {
+        "role": "tertiary",
+        "displayName": "Survey Blue",
+        "canonical": "#0F5C8C",
+        "tonalRamp": ["#061E2E", "#09334F", "#0C476E", "#0F5C8C", "#1C7BB5", "#4FA0D1", "#98C8E6", "#E5F2FA"]
+      },
+      "verified-emerald": {
+        "role": "tertiary",
+        "displayName": "Verified Emerald",
+        "canonical": "#10B981",
+        "tonalRamp": ["#052E22", "#064E3B", "#065F46", "#059669", "#10B981", "#34D399", "#86EFAC", "#ECFDF5"]
+      },
+      "coastal-ink": {
+        "role": "neutral",
+        "displayName": "Coastal Ink",
+        "canonical": "#0B1B2B",
+        "tonalRamp": ["#06101A", "#0B1B2B", "#132B42", "#1E3A52", "#36536E", "#5B7892", "#9AB1C4", "#E6EFF6"]
+      },
+      "harbor-slate": {
+        "role": "neutral",
+        "displayName": "Harbor Slate",
+        "canonical": "#1E3A52",
+        "tonalRamp": ["#0A1722", "#132738", "#1E3A52", "#2C506E", "#466B8A", "#6E90AC", "#A8BFD2", "#EBF2F7"]
+      },
+      "driftwood-slate": {
+        "role": "neutral",
+        "displayName": "Driftwood Slate",
+        "canonical": "#3D566E",
+        "tonalRamp": ["#0F1A24", "#1D2E3E", "#2C4256", "#3D566E", "#57728C", "#7C95AC", "#B0C1D1", "#EEF3F7"]
+      },
+      "daylight-paper": {
+        "role": "neutral",
+        "displayName": "Daylight Paper",
+        "canonical": "#F4F9FC",
+        "tonalRamp": ["#112230", "#243E52", "#3E5E76", "#64859E", "#93AFC4", "#C2D5E3", "#E3EEF6", "#F4F9FC"]
+      },
+      "architectural-white": {
+        "role": "neutral",
+        "displayName": "Architectural White",
+        "canonical": "#FFFFFF",
+        "tonalRamp": ["#14202B", "#2B3B4A", "#4A5C6D", "#708294", "#9AAAB8", "#C4CFD9", "#E6ECF1", "#FFFFFF"]
+      },
+      "marine-wash": {
+        "role": "neutral",
+        "displayName": "Marine Wash",
+        "canonical": "#E8F1F8",
+        "tonalRamp": ["#102231", "#213E55", "#3A607D", "#5D84A2", "#89ACC6", "#B6CFE2", "#D5E5F2", "#E8F1F8"]
+      },
+      "sandstone-linen": {
+        "role": "neutral",
+        "displayName": "Sandstone Linen",
+        "canonical": "#FCF8F0",
+        "tonalRamp": ["#282118", "#4A3F31", "#6E5F4B", "#94836C", "#B8A892", "#D6C9B6", "#EDE5D8", "#FCF8F0"]
+      },
+      "sandstone-umber": {
+        "role": "neutral",
+        "displayName": "Sandstone Umber",
+        "canonical": "#4A3F31",
+        "tonalRamp": ["#1E1913", "#332B21", "#4A3F31", "#665846", "#877763", "#AC9E8C", "#D2C9BC", "#F5F0E8"]
+      },
+      "mist-ice": {
+        "role": "neutral",
+        "displayName": "Mist Ice",
+        "canonical": "#C8DDF0",
+        "tonalRamp": ["#0D2032", "#1B3B58", "#2E5B82", "#4B7CA6", "#74A0C4", "#9CC0DF", "#C8DDF0", "#EFF6FC"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero h1 headline lockup (Archivo 800, 110% width, balanced 19ch measure, visible at t=0)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Primary h2 section anchors across architectural spreads, project ledgers, drone diagnostics, and closing forms."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Flagship spread h3 titles, specialty ledger division headers, financing panel titles, and FAQ triggers."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Technical specifications, homeowner testimonies, and FAQ answers set in Inter at 58ch-70ch measure."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase form field labels, tabular specification keys, and solid architectural corner plates."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sh-cta",
+        "value": "inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 2px 4px rgba(229, 57, 43, 0.32), 0 12px 26px -8px rgba(229, 57, 43, 0.52)",
+        "purpose": "Directional signal-red projection and top specular highlight on primary Hero and Ballpark triggers."
+      },
+      {
+        "name": "sh-glass",
+        "value": "inset 0 1px 0 rgba(255, 255, 255, 0.86), inset 0 -1px 0 rgba(255, 255, 255, 0.18), 0 2px 4px rgba(14, 92, 140, 0.10), 0 12px 30px -8px rgba(14, 92, 140, 0.22)",
+        "purpose": "Sky-tinted refractive elevation for floating Hero credential badge, glass call button, and reviews chip."
+      },
+      {
+        "name": "sh-card",
+        "value": "0 2px 6px rgba(14, 92, 140, 0.10), 0 28px 60px -18px rgba(14, 92, 140, 0.32)",
+        "purpose": "Anchors the 1024px Horizontal Glass Ballpark Instrument Bar across the cutout rooftop horizon."
+      },
+      {
+        "name": "plate-rest",
+        "value": "0 14px 34px -12px rgba(11, 27, 43, 0.08)",
+        "purpose": "Subtle ambient separation for square-cornered architectural service spreads and before/after frames."
+      },
+      {
+        "name": "dark-band-form",
+        "value": "0 24px 48px -12px rgba(0, 0, 0, 0.45)",
+        "purpose": "Grounds the opaque white Closing Lead Desk against the deep Coastal Ink section surface."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Primary exponential ease-out for button lifts, combobox menus, pill highlights, and inline drawer expansion (zero bounce)."
+      },
+      {
+        "name": "ease-io",
+        "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "purpose": "Gentle ambient oscillation for Hero atmospheric accents when prefers-reduced-motion is no-preference."
+      },
+      {
+        "name": "duration-fast",
+        "value": "120ms",
+        "purpose": "Immediate color and active press state feedback (--t-1)."
+      },
+      {
+        "name": "duration-base",
+        "value": "180ms",
+        "purpose": "Standard hover, border, and combobox highlight transitions (--t-2)."
+      },
+      {
+        "name": "duration-drawer",
+        "value": "400ms",
+        "purpose": "Inline CSS Grid 0fr-to-1fr ballpark drawer expansion."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "hero-bar", "value": "900px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "container", "value": "1400px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Signal Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-visibility Signal Red-Orange conversion CTA used in the Hero and 10-Second Ballpark Bar.",
+      "html": "<button type=\"button\" class=\"ds-btn-primary\"><span>Get a Free Estimate</span><svg class=\"ds-btn-arrow\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px; border: 0; border-radius: var(--r-md, 14px); background: linear-gradient(180deg, var(--red-500, #E5392B) 0%, var(--red-600, #CC2E23) 85%); color: #FFFFFF; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-weight: 700; font-size: 1.0625rem; letter-spacing: -0.005em; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), 0 2px 4px rgba(229,57,43,0.32), 0 12px 26px -8px rgba(229,57,43,0.52); transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1), background 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-arrow { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover { transform: translateY(-2px); background: linear-gradient(180deg, var(--red-600, #CC2E23) 0%, var(--red-700, #A9241B) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 4px 8px rgba(229,57,43,0.36), 0 18px 34px -10px rgba(229,57,43,0.64); } .ds-btn-primary:hover .ds-btn-arrow, .ds-btn-primary:focus-visible .ds-btn-arrow { transform: translateX(4px); } .ds-btn-primary:focus-visible { outline: 2px solid #0B1B2B; outline-offset: 2px; } .ds-btn-primary:active { transform: translateY(0) scale(0.99); }"
+    },
+    {
+      "name": "Dark-Band Solar CTA Button",
+      "kind": "button",
+      "refersTo": "button-dark-band",
+      "description": "High-contrast Solar Gold action trigger for deep Coastal Ink diagnostic bands.",
+      "html": "<div class=\"ds-dark-stage\"><button type=\"button\" class=\"ds-btn-solar\"><span>Book My Free 21-Point Inspection</span><svg class=\"ds-btn-solar-ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button></div>",
+      "css": ".ds-dark-stage { background: #0B1B2B; padding: 20px; display: inline-flex; } .ds-btn-solar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 24px; border: 0; border-radius: 8px; background: var(--sun, #FFC700); color: var(--ink, #0B1B2B); font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-weight: 800; font-size: 0.875rem; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; cursor: pointer; box-shadow: 0 10px 24px -6px rgba(255, 199, 0, 0.30); transition: background-color 180ms cubic-bezier(0.16, 1, 0.3, 1), transform 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-solar-ico { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; } .ds-btn-solar:hover { background: #F0B800; transform: translateY(-1px); } .ds-btn-solar:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; } .ds-btn-solar:active { transform: scale(0.99); }"
+    },
+    {
+      "name": "Specification Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Architectural white 1px-bordered trigger that pre-selects a service in the Hero Ballpark Bar.",
+      "html": "<button type=\"button\" class=\"ds-btn-outline\"><span>Tile Relay Ballpark</span><svg class=\"ds-btn-outline-ico\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3.5 8h9m0 0L8.75 4.25M12.5 8l-3.75 3.75\"/></svg></button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 8px; border: 1px solid rgba(11, 27, 43, 0.22); background: #FFFFFF; color: #0B1B2B; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-weight: 700; font-size: 0.875rem; letter-spacing: -0.01em; cursor: pointer; transition: border-color 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-outline-ico { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; } .ds-btn-outline:hover { border-color: #0B1B2B; background: #F4F9FC; } .ds-btn-outline:focus-visible { outline: 2px solid #0B1B2B; outline-offset: 2px; } .ds-btn-outline:active { background: #E8F1F8; }"
+    },
+    {
+      "name": "Verified Service-Area & Review Chip",
+      "kind": "chip",
+      "refersTo": "chip-verified",
+      "description": "Live geographic coverage and verified 5.0-star homeowner proof pills.",
+      "html": "<div class=\"ds-chip-row\"><a href=\"#reviews\" class=\"ds-chip-proof\"><span class=\"ds-chip-score\"><svg class=\"ds-chip-star\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.6-5.1-2.7-5.1 2.7 1-5.6-4.1-4 5.7-.8z\"/></svg><span>5.0</span></span><span class=\"ds-chip-label\">9 Verified Reviews</span></a><span class=\"ds-chip-served\"><span class=\"ds-chip-dot\" aria-hidden=\"true\"></span><span>Yes, we serve Oceanside</span></span></div>",
+      "css": ".ds-chip-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; } .ds-chip-proof { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 4px 18px 4px 8px; border-radius: 999px; background: #FFFFFF; border: 1px solid rgba(11, 27, 43, 0.14); color: #0B1B2B; text-decoration: none; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-variant-numeric: tabular-nums; box-shadow: 0 2px 6px rgba(14, 92, 140, 0.10); transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), border-color 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-chip-proof:hover { transform: translateY(-2px); border-color: #0B1B2B; } .ds-chip-proof:focus-visible { outline: 2px solid #0B1B2B; outline-offset: 2px; } .ds-chip-score { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; background: #F4F9FC; font-weight: 800; font-size: 1rem; } .ds-chip-star { width: 16px; height: 16px; fill: #FFC700; stroke: #C99700; stroke-width: 1.2; } .ds-chip-label { font-weight: 700; font-size: 0.875rem; } .ds-chip-served { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: #ECFDF5; border: 1px solid rgba(16, 185, 129, 0.42); color: #065F46; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 0.8125rem; font-weight: 700; } .ds-chip-dot { width: 7px; height: 7px; border-radius: 50%; background: #10B981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.22); }"
+    },
+    {
+      "name": "Architectural Input & Combobox Trigger",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "High-contrast daylight text input and WAI-ARIA combobox trigger with Solar Gold focus halo.",
+      "html": "<div class=\"ds-field-grid\"><label class=\"ds-field\"><span class=\"ds-field-label\">ZIP Code</span><input class=\"ds-input\" type=\"text\" inputmode=\"numeric\" maxlength=\"5\" placeholder=\"92054\" value=\"92054\" /></label><div class=\"ds-field\"><span class=\"ds-field-label\">Service</span><button type=\"button\" class=\"ds-combo\"><span class=\"ds-combo-chip\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.2V20h14V9.2\"/></svg></span><span class=\"ds-combo-val\">Tile Roof Lift &amp; Relay</span><svg class=\"ds-combo-chev\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg></button></div></div>",
+      "css": ".ds-field-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; } .ds-field { display: grid; gap: 6px; } .ds-field-label { font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #1E3A52; } .ds-input { min-height: 48px; padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(11, 27, 43, 0.24); background: #FFFFFF; color: #0B1B2B; caret-color: #E5392B; font-family: var(--ff-body, 'Inter', sans-serif); font-size: 0.9375rem; font-weight: 600; font-variant-numeric: tabular-nums; transition: border-color 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-input::placeholder { color: #3D566E; } .ds-input:hover { border-color: #0B1B2B; } .ds-input:focus-visible { outline: 2px solid #0F5C8C; outline-offset: 0; border-color: #0F5C8C; } .ds-combo { display: flex; align-items: center; gap: 10px; min-height: 50px; padding: 6px 12px 6px 8px; border-radius: 12px; border: 1px solid rgba(11, 27, 43, 0.26); background: #FFFFFF; color: #0B1B2B; cursor: pointer; text-align: left; transition: border-color 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-combo:hover { border-color: #0B1B2B; } .ds-combo:focus-visible { border-color: #0B1B2B; outline: 2px solid #0B1B2B; outline-offset: 1px; box-shadow: 0 0 0 4px #FFC700; } .ds-combo-chip { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: rgba(255, 199, 0, 0.26); color: #0B1B2B; flex: none; } .ds-combo-chip svg, .ds-combo-chev { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.85; stroke-linecap: round; stroke-linejoin: round; } .ds-combo-val { flex: 1; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 0.9375rem; font-weight: 700; }"
+    },
+    {
+      "name": "Coastal Header & Dispatch Bar",
+      "kind": "nav",
+      "description": "Daylight navigation bar pairing crawlable specification links with direct tap-to-call Oceanside dispatch.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary\"><span class=\"ds-nav-brand\">RISE UP ROOFING</span><div class=\"ds-nav-links\"><a href=\"#services\" class=\"ds-nav-link\">Services</a><a href=\"#projects\" class=\"ds-nav-link\">Projects</a><a href=\"#reviews\" class=\"ds-nav-link\">Reviews</a></div><div class=\"ds-nav-actions\"><a href=\"tel:+17606221230\" class=\"ds-nav-phone\">(760) 622-1230</a><a href=\"#hero-estimator\" class=\"ds-nav-cta\">Free Estimate</a></div></nav>",
+      "css": ".ds-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px; background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgba(11, 27, 43, 0.10); color: #0B1B2B; font-family: var(--ff-body, 'Inter', sans-serif); } .ds-nav-brand { font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-weight: 800; font-size: 0.95rem; letter-spacing: -0.02em; color: #0B1B2B; } .ds-nav-links { display: flex; align-items: center; gap: 20px; } .ds-nav-link { font-size: 0.875rem; font-weight: 600; color: #1E3A52; text-decoration: none; text-underline-offset: 4px; transition: color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav-link:hover { color: #0F5C8C; text-decoration: underline; } .ds-nav-link:focus-visible { outline: 2px solid #0B1B2B; outline-offset: 3px; } .ds-nav-actions { display: flex; align-items: center; gap: 12px; } .ds-nav-phone { font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 0.875rem; font-weight: 800; color: #0B1B2B; text-decoration: none; font-variant-numeric: tabular-nums; } .ds-nav-phone:hover { color: #0F5C8C; } .ds-nav-cta { display: inline-flex; align-items: center; min-height: 38px; padding: 0 14px; border-radius: 10px; background: #C92D20; color: #FFFFFF; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 0.8125rem; font-weight: 700; text-decoration: none; transition: background-color 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav-cta:hover { background: #AD2317; } .ds-nav-cta:focus-visible { outline: 2px solid #0B1B2B; outline-offset: 2px; }"
+    },
+    {
+      "name": "10-Second Glass Ballpark Instrument Bar",
+      "kind": "custom",
+      "refersTo": "ballpark-bar",
+      "description": "Signature 72px horizontal glass estimator docking Service, Home Size, and ZIP into an inline price drawer.",
+      "html": "<div class=\"ds-bbar-shell\"><div class=\"ds-bbar-head\"><strong>Get your ballpark in 10 seconds</strong><span>· Free inspection · No spam</span></div><div class=\"ds-bbar\"><button type=\"button\" class=\"ds-bbar-cell\"><span class=\"ds-bbar-k\">SERVICE</span><span class=\"ds-bbar-v\">Roof Replacement</span></button><span class=\"ds-bbar-sep\" aria-hidden=\"true\"></span><button type=\"button\" class=\"ds-bbar-cell\"><span class=\"ds-bbar-k\">HOME SIZE</span><span class=\"ds-bbar-v\">1,500 – 2,500 sq ft</span></button><span class=\"ds-bbar-sep\" aria-hidden=\"true\"></span><div class=\"ds-bbar-cell\"><span class=\"ds-bbar-k\">ZIP CODE</span><span class=\"ds-bbar-v\">92054 · Oceanside</span></div><button type=\"button\" class=\"ds-bbar-go\">Get My Ballpark</button></div></div>",
+      "css": ".ds-bbar-shell { padding: 12px 14px 14px; border-radius: 24px; background: linear-gradient(135deg, rgba(217, 241, 253, 0.72), rgba(244, 249, 252, 0.90)); border: 1px solid rgba(11, 27, 43, 0.12); box-shadow: 0 2px 6px rgba(14, 92, 140, 0.10), 0 24px 48px -16px rgba(14, 92, 140, 0.28); color: #0B1B2B; } .ds-bbar-head { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 8px; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 0.875rem; color: #1E3A52; } .ds-bbar-head strong { color: #0B1B2B; font-weight: 800; } .ds-bbar { display: grid; grid-template-columns: 1.2fr 1px 1.1fr 1px 0.95fr auto; align-items: stretch; min-height: 72px; padding: 6px; border-radius: 16px; background: #FFFFFF; border: 1px solid rgba(11, 27, 43, 0.10); } .ds-bbar-sep { width: 1px; margin: 10px 2px; background: rgba(11, 27, 43, 0.12); } .ds-bbar-cell { display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 6px 12px; border: 0; border-radius: 12px; background: transparent; text-align: left; cursor: pointer; font-variant-numeric: tabular-nums; transition: background-color 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-bbar-cell:hover { background: rgba(14, 92, 140, 0.06); } .ds-bbar-cell:focus-visible { outline: 2px solid #0B1B2B; outline-offset: 1px; box-shadow: 0 0 0 4px #FFC700; background: #FFFFFF; } .ds-bbar-k { font-family: var(--ff-body, 'Inter', sans-serif); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.05em; color: #3D566E; } .ds-bbar-v { font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 0.9rem; font-weight: 700; color: #0B1B2B; } .ds-bbar-go { padding: 0 20px; border: 0; border-radius: 12px; background: linear-gradient(180deg, #E5392B 0%, #CC2E23 100%); color: #FFFFFF; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-bbar-go:hover { transform: translateY(-1px); } .ds-bbar-go:focus-visible { outline: 2px solid #0B1B2B; outline-offset: 2px; } @media (max-width: 720px) { .ds-bbar { grid-template-columns: 1fr; gap: 6px; } .ds-bbar-sep { display: none; } .ds-bbar-go { min-height: 48px; } }"
+    },
+    {
+      "name": "Tabular Specification Ledger Plate",
+      "kind": "card",
+      "refersTo": "card-spec-plate",
+      "description": "Square-cornered architectural specification sheet with 1px hairline metric cells and survey route links.",
+      "html": "<article class=\"ds-spec-plate\"><h3 class=\"ds-spec-title\">Residential Roof Replacement &amp; Concrete/Clay Tile Relay</h3><p class=\"ds-spec-copy\">Complete tear-offs to bare CDX wood sheathing under California CRC R908—never illegal overlays.</p><dl class=\"ds-spec-dl\"><div><dt>Lifespan</dt><dd>30–50+ Yrs</dd></div><div><dt>Code</dt><dd>CRC R908 · T24</dd></div><div><dt>Warranty</dt><dd>25-Yr System</dd></div></dl><a href=\"/services/tile-roofing\" class=\"ds-spec-link\"><span>Concrete &amp; Spanish Clay Tile Lift-and-Reset</span><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3.5 8h9m0 0L8.75 4.25M12.5 8l-3.75 3.75\"/></svg></a></article>",
+      "css": ".ds-spec-plate { padding: 28px; border-radius: 0; background: #FFFFFF; border: 1px solid rgba(11, 27, 43, 0.14); box-shadow: 0 14px 34px -12px rgba(11, 27, 43, 0.08); color: #0B1B2B; } .ds-spec-title { margin: 0; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 1.375rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; } .ds-spec-copy { margin: 10px 0 0; font-family: var(--ff-body, 'Inter', sans-serif); font-size: 0.9375rem; line-height: 1.5; color: #1E3A52; max-width: 60ch; } .ds-spec-dl { display: grid; grid-template-columns: repeat(3, 1fr); margin: 18px 0; padding: 12px 0; border-top: 1px solid rgba(11, 27, 43, 0.12); border-bottom: 1px solid rgba(11, 27, 43, 0.12); font-variant-numeric: tabular-nums; } .ds-spec-dl > div { padding: 0 12px; border-left: 1px solid rgba(11, 27, 43, 0.12); } .ds-spec-dl > div:first-child { padding-left: 0; border-left: 0; } .ds-spec-dl dt { font-family: var(--ff-body, 'Inter', sans-serif); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #3D566E; } .ds-spec-dl dd { margin: 3px 0 0; font-family: var(--ff-display, 'Archivo', Arial, sans-serif); font-size: 0.875rem; font-weight: 800; color: #0B1B2B; } .ds-spec-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--ff-body, 'Inter', sans-serif); font-size: 0.875rem; font-weight: 700; color: #0F5C8C; text-decoration: underline; text-underline-offset: 4px; transition: color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-spec-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; } .ds-spec-link:hover { color: #0B1B2B; } .ds-spec-link:focus-visible { outline: 2px solid #0B1B2B; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Coastal Architectural Spec Desk",
+    "overview": "Rise Up Roofing & Construction's visual language pairs the clarity of an architectural specification sheet with the open morning light of coastal North County San Diego. Property owners arrive either under acute storm-leak stress or while comparing multi-decade roof replacement bids; the interface earns trust immediately by putting working ballpark pricing, verified license numbers, California building codes (`CRC R908`, `Title 24`), and real San Diego jobsite photography directly on the table without theatrics.\n\nBelow the daylight coastal Hero—where morning sky atmosphere and refractive glass instruments frame the cutout San Diego rooftop skyline—the page settles onto crisp, opaque architectural paper, pure white specification plates, warm sandstone testimony linen, and deep coastal ink inspection bands. Information is organized through asymmetric specification spreads, hairline `1px` rules, and tabular metric strips rather than repetitive card grids. The system explicitly rejects 3D/WebGL scroll canvases, smooth-scroll hijacking, fixed full-page background gradients, modal conversion traps, and generic contractor badge clutter.",
+    "keyCharacteristics": [
+      "Daylight-first coastal tonal architecture grounded on cool sky paper, pure specification white, warm sandstone linen, and deep coastal ink.",
+      "Heavy expanded `Archivo` display typography that speaks without eyebrow kickers, paired with crisp `Inter` body copy and strict `tabular-nums` alignment on every price, phone number, license, and building metric.",
+      "Scoped refractive glass reserved exclusively for floating Hero instruments and fixed navigation chrome; all content sections below the fold use solid opaque surfaces and `1px` structural hairlines.",
+      "Conversion built directly into native working instruments—the 10-Second Horizontal Ballpark Bar and Dual-Intent Closing Lead Desk—backed by persistent direct tap-to-call dispatch."
+    ],
+    "rules": [
+      {
+        "name": "The Signal Rarity Rule",
+        "body": "Signal Red-Orange and Survey Crimson appear strictly on primary conversion actions, live emergency dispatch cues, and text carets—never on decorative badges, section backgrounds, or passive icons.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinted Secondary Ink Rule",
+        "body": "Secondary and muted text always inherits the temperature of its underlying ground: Harbor Slate and Driftwood Slate on cool daylight surfaces, Sandstone Umber on warm Sandstone Linen, and Mist Ice on deep Coastal Ink—never untinted neutral gray.",
+        "section": "colors"
+      },
+      {
+        "name": "The Scoped Sky Rule",
+        "body": "Atmospheric sky gradients belong exclusively inside the positioned Hero canvas (`position: absolute` within `.hero`); `html` and `body` remain solid Daylight Paper with zero `background-attachment: fixed` layers.",
+        "section": "colors"
+      },
+      {
+        "name": "The Heading Speaks Alone Rule",
+        "body": "Section `<h2>` and `<h3>` headings never carry an uppercase eyebrow or kicker label above them; `Archivo` weight and scale establish hierarchy on their own.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Every price range, monthly payment, square-footage tier, phone number, ZIP code, rating score, response window (`60–90 minutes`), and license number (`#1096492`) enforces `font-variant-numeric: tabular-nums` so figures align cleanly in ledgers and never jitter during live ballpark interpolation.",
+        "section": "typography"
+      },
+      {
+        "name": "The Scoped Glass Rule",
+        "body": "`backdrop-filter: blur(...)` is restricted to floating Hero instruments (`.hero-glass`, `.est__bg`) and fixed navigation chrome (`Header`, `StickyCTA`), and automatically collapses to solid `colors.architectural-white` with `1px` borders under `@media (prefers-reduced-transparency: reduce)`.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Hairline Over Box-Grid Rule",
+        "body": "Related items—trust credentials, specialty service divisions, surveyed case studies, regional city links, homeowner reviews, and FAQs—separate via `1px` dividers (`divide-y` / `divide-x`) inside a shared plane rather than floating as disconnected drop-shadowed cards, and cards never nest inside cards.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep `<h1>` and above-the-fold Hero elements at `opacity: 1` from `t=0` so Largest Contentful Paint renders immediately without JavaScript hydration gates.",
+      "Do apply `tabular-nums` (`font-variant-numeric: tabular-nums`) on every dollar estimate, monthly payment, square-footage range, phone number, ZIP code, star rating, and contractor license number.",
+      "Do tint secondary and muted text from the active surface hue (`colors.harbor-slate` / `colors.driftwood-slate` on cool daylight paper, `colors.sandstone-umber` on warm sandstone, `colors.mist-ice` on deep navy) while maintaining `>= 4.5:1` contrast.",
+      "Do pair every lead submission error state with both an inline Retry trigger and a direct clickable `(760) 622-1230` telephone fallback.",
+      "Do honor `@media (prefers-reduced-motion: reduce)` and `@media (prefers-reduced-transparency: reduce)` across all sky clouds, button transitions, drawer expansions, and glass surfaces."
+    ],
+    "donts": [
+      "Don't place uppercase kicker or eyebrow labels above `<h2>` or `<h3>` section headings; delete the label and let `Archivo` carry the hierarchy.",
+      "Don't build uniform same-size 3-card icon-heading-blurb grids or nest cards inside cards; use asymmetric specification spreads and `1px` hairline ledgers instead.",
+      "Don't use gradient-clipped text (`background-clip: text`), emoji or Unicode symbols as icons, bounce/overshoot spring easing (`cubic-bezier(0.34, 1.56, 0.64, 1)`), hard zero-blur offset shadows, or `border-left` / `border-right` accents wider than `1px`.",
+      "Don't introduce 3D/WebGL canvases, smooth-scroll hijacking, `background-attachment: fixed` body layers, auto-popup promotional modals, or eager third-party map/CAPTCHA scripts on initial fold load."
+    ]
+  }
+}

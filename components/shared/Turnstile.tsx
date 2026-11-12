@@ -42,7 +42,9 @@ export function Turnstile({
 }: TurnstileProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(
+    () => typeof window !== 'undefined' && Boolean(window.turnstile),
+  );
 
   // Keep latest callbacks in refs so parent form re-renders (e.g. typing in inputs
   // or storing turnstileToken in state) NEVER destroy and re-render the widget!
@@ -57,12 +59,7 @@ export function Turnstile({
   }, [onVerify, onError, onExpire]);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    if (window.turnstile) {
-      setLoaded(true);
-      return;
-    }
+    if (typeof window === 'undefined' || window.turnstile) return;
 
     const SCRIPT_ID = 'cf-turnstile-script';
     let script = document.getElementById(SCRIPT_ID) as HTMLScriptElement | null;

@@ -1,49 +1,63 @@
-import type { Metadata, Viewport } from 'next';
+import type { Metadata } from 'next';
 import Script from 'next/script';
-import { BRAND_DATA } from '@/lib/brand-data';
-import { LeadModalProvider } from '@/context/LeadModalContext';
-import { UnifiedLeadModal } from '@/components/shared/UnifiedLeadModal';
-import { Archivo, Inter } from './fonts';
-import './styles/website.css';
-import './styles/tokens.css';
-import './styles/base.css';
-import './styles/sky.css';
-import './styles/chrome.css';
-import './styles/hero.css';
-import './styles/sections.css';
-import './styles/scenes.css';
-import './styles/closing.css';
+import { Archivo, InterLocal } from './fonts';
+import './globals.css';
+import { buildRootGraphJsonLd, serializeJsonLd } from '@/lib/seo/metadata';
+import { COMPANY_NAME } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://riseuprac.com'),
-  title: 'San Diego Roofing & Construction Experts | Rise Up Roofing & Construction',
-  description:
-    'Licensed San Diego roofer (CA Lic #1096492, B & C-39) and Owens Corning Preferred Contractor. Roof replacement, tile underlayment, leak repair and a free 21-point roof inspection.',
-  alternates: { canonical: '/' },
-  openGraph: {
-    title: 'Rise Up Roofing & Construction',
-    description: 'San Diego roofing and construction. Free 21-point roof inspection.',
-    url: 'https://riseuprac.com',
-    siteName: 'Rise Up Roofing & Construction',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
-    locale: 'en_US',
-    type: 'website',
+  title: {
+    default: `San Diego Roofing Contractor | ${COMPANY_NAME}`,
+    template: `%s | ${COMPANY_NAME}`,
   },
-  icons: { icon: BRAND_DATA.favicon },
+  description:
+    'Licensed San Diego roofing & general building contractor (CSLB #1096492). Roof replacement, tile underlayment relay, 24/7 leak repair & solar detach-reset. Free estimates.',
+  metadataBase: new URL('https://riseuprac.com'),
+  keywords: [
+    'san diego roofing contractor',
+    'roofing company san diego',
+    'roof replacement san diego',
+    'tile roof relay san diego',
+    'roof repair san diego',
+    'commercial roofing san diego',
+    'solar roofing detach and reset san diego',
+    'oceanside roofing contractor',
+    'carlsbad roofing company',
+    'free drone roof inspection san diego',
+    'roof financing san diego',
+  ],
+  authors: [{ name: COMPANY_NAME }],
+  creator: COMPANY_NAME,
+  publisher: COMPANY_NAME,
+  category: 'Roofing and Construction Services',
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: true,
+  },
+  verification: {
+    google: 'google127c05be5b9b38a9',
+  },
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 };
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  viewportFit: 'cover',
-  themeColor: '#4AB4F0',
-};
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const rootGraphJsonLd = buildRootGraphJsonLd();
+
   return (
-    <html lang="en" className={`${Archivo.variable} ${Inter.variable}`} data-chrome-tone="light" data-bar-tone="light" data-red-busy="">
-      <body>
-        <Script id="google-tag-gtag" strategy="afterInteractive">
+    <html lang="en" className={`${Archivo.variable} ${InterLocal.variable}`} data-scroll-behavior="smooth">
+      <body className="antialiased">
+        {/* Google tag (gtag.js) - active on production domains only; disabled on staging, localhost, and admin */}
+        <Script id="google-tag-gtag" strategy="lazyOnload">
           {`
             var isStagingOrDev = (
               window.location.hostname === 'website.riseuprac.com' ||
@@ -52,6 +66,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               window.location.hostname === '127.0.0.1' ||
               window.location.pathname.startsWith('/admin')
             );
+
             if (isStagingOrDev) {
               window['ga-disable-G-82QZ88P6TK'] = true;
             } else {
@@ -59,6 +74,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-82QZ88P6TK');
+
               var s = document.createElement('script');
               s.async = true;
               s.src = 'https://www.googletagmanager.com/gtag/js?id=G-82QZ88P6TK';
@@ -66,11 +82,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             }
           `}
         </Script>
-        <Script src="/tracker.js" strategy="afterInteractive" />
-        <LeadModalProvider>
-          {children}
-          <UnifiedLeadModal />
-        </LeadModalProvider>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(rootGraphJsonLd) }}
+        />
+        {/* Rich analytics tracking — pageviews, clicks, scroll, forms, CTAs, session duration, UTMs */}
+        <Script src="/tracker.js" strategy="lazyOnload" />
+        {children}
       </body>
     </html>
   );

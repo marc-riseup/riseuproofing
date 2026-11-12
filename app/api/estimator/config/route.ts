@@ -107,11 +107,10 @@ const INITIAL_SERVICES = [
   },
 ];
 
-function getBackendUrl(): string {
+function getBackendUrl(): string | null {
   return (
     process.env.FASTAPI_BACKEND_URL ||
-    process.env.NEXT_PUBLIC_API_URL ||
-    (process.env.USE_FASTAPI === 'true' ? 'http://127.0.0.1:8000' : '')
+    (process.env.USE_FASTAPI === 'true' ? 'http://127.0.0.1:8000' : null)
   );
 }
 
@@ -124,12 +123,10 @@ export async function GET() {
   const backendUrl = getBackendUrl();
   if (backendUrl) {
     try {
-      const apiKey = getApiKey();
-
       const res = await fetch(`${backendUrl}/api/estimator/config`, {
         next: { revalidate: 60 },
         headers: {
-          'x-api-key': apiKey,
+          'x-api-key': getApiKey(),
           'Content-Type': 'application/json',
         },
       });

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@/components/shared/Icon';
 import { getProjectBySlug, getAllProjectSlugs, projects } from '@/lib/data/projects';
-import { buildMetadata, buildProjectJsonLd } from '@/lib/seo/metadata';
+import { buildMetadata, buildProjectJsonLd, serializeJsonLd } from '@/lib/seo/metadata';
 import { Section } from '@/components/shared/Container';
 import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
 
@@ -44,7 +44,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectJsonLd) }}
       />
       {/* Hero — full-width case study image */}
 
@@ -175,7 +175,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                 </div>
                 <div className="flex justify-between items-center py-1 border-b border-slate-100">
                   <span className="text-[var(--text-muted)] font-semibold uppercase tracking-wider">Warranty</span>
-                  <span className="font-bold text-emerald-700">Lifetime Owens Corning</span>
+                  <span className="font-bold text-emerald-700">25-Year Owens Corning</span>
                 </div>
               </div>
 

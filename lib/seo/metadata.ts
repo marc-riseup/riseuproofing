@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
-import { COMPANY_NAME, BASE_URL, CONTACT_EMAIL } from '@/lib/utils';
+import { serviceAreas as SERVICE_AREAS } from '@/lib/data/serviceAreas';
+import { services as SERVICES } from '@/lib/data/services';
+import { COMPANY_NAME, BASE_URL, CONTACT_EMAIL, LICENSE_NUMBER } from '@/lib/utils';
 
 interface MetadataOptions {
   title: string;
@@ -9,27 +11,33 @@ interface MetadataOptions {
   noIndex?: boolean;
 }
 
+export const ORGANIZATION_ID = `${BASE_URL}/#organization`;
+export const WEBSITE_ID = `${BASE_URL}/#website`;
+export const ADDRESS_ID = `${BASE_URL}/#address`;
+
+export const serializeJsonLd = (v: unknown): string =>
+  JSON.stringify(v).replace(/</g, '\\u003c');
 
 export function buildMetadata({ title, description, path, ogImage, noIndex }: MetadataOptions): Metadata {
   const trimmed = title.trim();
-  let fullTitle: string;
-
-  if (trimmed.includes('Rise Up') || trimmed.includes('riseuprac')) {
-    fullTitle = trimmed.replace(/\s*\|\s*San Diego County/i, '').trim();
-  } else if (trimmed.length <= 48) {
-    // Plenty of room for full brand suffix under 60 chars
-    fullTitle = `${trimmed} | Rise Up Roofing`;
-  } else if (trimmed.length <= 53) {
-    // Fit short brand suffix under 60 chars
-    fullTitle = `${trimmed} | Rise Up`;
-  } else {
-    // Title is already a complete, rich 54-65 char keyword phrase — preserve fully without truncation
-    fullTitle = trimmed;
-  }
+  const hasBrand = /rise\s*up|riseuprac/i.test(trimmed);
+  const base = hasBrand ? trimmed : trimmed.replace(/\s*\|\s*(Free Estimates?|San Diego County)$/i, '').trim();
+  const fullTitle = hasBrand
+    ? trimmed.length > 65
+      ? trimmed.replace(/\s*\|\s*San Diego County/i, '').trim()
+      : trimmed
+    : base.length <= 46
+      ? `${base} | Rise Up Roofing`
+      : base.length <= 55
+        ? `${base} | Rise Up`
+        : base;
 
   const url = `${BASE_URL}${path}`;
-
-  const image = ogImage || `${BASE_URL}/og-image.jpg`;
+  const image = ogImage
+    ? ogImage.startsWith('http')
+      ? ogImage
+      : `${BASE_URL}${ogImage}`
+    : `${BASE_URL}/og-image.jpg`;
 
   return {
     title: {
@@ -65,6 +73,7 @@ export function buildMetadata({ title, description, path, ogImage, noIndex }: Me
 
 export const BUSINESS_ADDRESS = {
   '@type': 'PostalAddress',
+  '@id': ADDRESS_ID,
   streetAddress: '2182 S El Camino Real',
   addressLocality: 'Oceanside',
   addressRegion: 'CA',
@@ -72,12 +81,77 @@ export const BUSINESS_ADDRESS = {
   addressCountry: 'US',
 };
 
-export function buildLocalBusinessJsonLd(stats?: { totalCount: number; averageRating: number }) {
+export interface LocalBusinessStatsInput {
+  totalCount: number;
+  averageRating: number;
+}
+
+export interface LocalBusinessReviewInput {
+  author: string;
+  rating: number;
+  text: string;
+}
+
+export interface LocalBusinessJsonLdOptions {
+  stats?: LocalBusinessStatsInput;
+  reviews?: LocalBusinessReviewInput[];
+}
+
+function buildAggregateAndReviews(
+  stats?: LocalBusinessStatsInput,
+  reviews?: LocalBusinessReviewInput[]
+) {
+  const reviewCount = Math.max(stats?.totalCount ?? 0, reviews?.length ?? 0);
+  const avgRating =
+    stats && stats.totalCount > 0
+      ? stats.averageRating
+      : reviews && reviews.length > 0
+      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+      : 0;
+
+  return {
+    ...(reviewCount > 0 && avgRating > 0
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: avgRating.toFixed(1),
+            reviewCount,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
+    ...(reviews && reviews.length > 0
+      ? {
+          review: reviews.map((r) => ({
+            '@type': 'Review',
+            author: { '@type': 'Person', name: r.author },
+            reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5, worstRating: 1 },
+            reviewBody: r.text,
+          })),
+        }
+      : {}),
+  };
+}
+
+export function buildLocalBusinessJsonLd(
+  input?: LocalBusinessStatsInput | LocalBusinessJsonLdOptions
+) {
+  const stats = input && 'totalCount' in input ? input : input?.stats;
+  const reviews = input && !('totalCount' in input) ? input.reviews : undefined;
+
   return {
     '@context': 'https://schema.org',
+    '@id': ORGANIZATION_ID,
     '@type': ['RoofingContractor', 'GeneralContractor'],
     name: COMPANY_NAME,
+    legalName: 'Rise Up Roofing & Construction Inc.',
     url: BASE_URL,
+    image: `${BASE_URL}/og-image.jpg`,
+    logo: `${BASE_URL}/logo.svg`,
+    slogan: `Dual-Licensed San Diego Roofing & General Building Contractor (CSLB #${LICENSE_NUMBER})`,
+    description:
+      'Dual-licensed San Diego County roofing and Class B general building contractor (CSLB #1096492, Owens Corning Preferred Contractor #247226) providing residential roof replacement, concrete and Spanish clay tile underlayment relays, 24/7 emergency leak repair, solar detach-and-reset, commercial flat roofing, and exterior construction across San Diego County, Temecula, and Murrieta.',
     telephone: '+17606221230',
     email: CONTACT_EMAIL,
     address: BUSINESS_ADDRESS,
@@ -86,41 +160,49 @@ export function buildLocalBusinessJsonLd(stats?: { totalCount: number; averageRa
       latitude: 33.1812,
       longitude: -117.3395,
     },
-    ...(stats && stats.totalCount > 0
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: stats.averageRating.toFixed(1),
-            reviewCount: stats.totalCount,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        }
-      : {}),
-    areaServed: [
-      { '@type': 'County', name: 'San Diego County' },
-      { '@type': 'City', name: 'San Diego' },
-      { '@type': 'City', name: 'Oceanside' },
-      { '@type': 'City', name: 'Carlsbad' },
-      { '@type': 'City', name: 'Escondido' },
-      { '@type': 'City', name: 'Encinitas' },
-      { '@type': 'City', name: 'San Marcos' },
-      { '@type': 'City', name: 'Vista' },
-      { '@type': 'City', name: 'Del Mar' },
-      { '@type': 'City', name: 'Solana Beach' },
-      { '@type': 'City', name: 'La Jolla' },
-      { '@type': 'City', name: 'Chula Vista' },
-      { '@type': 'City', name: 'El Cajon' },
-      { '@type': 'City', name: 'La Mesa' },
-      { '@type': 'City', name: 'Poway' },
-      { '@type': 'City', name: 'Rancho Santa Fe' },
-      { '@type': 'City', name: 'Rancho San Diego' },
-      { '@type': 'City', name: 'Fallbrook' },
-      { '@type': 'City', name: 'Ramona' },
-      { '@type': 'City', name: 'Valley Center' },
-      { '@type': 'City', name: 'Rancho Bernardo' },
+    identifier: [
+      {
+        '@type': 'PropertyValue',
+        name: 'California Contractors State License Board (CSLB)',
+        value: `${LICENSE_NUMBER} (C-39 Roofing & Class B General Building)`,
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Owens Corning Preferred Contractor',
+        value: '247226',
+      },
     ],
-
+    knowsAbout: [
+      `CSLB License #${LICENSE_NUMBER} (C-39 Roofing & Class B General Building)`,
+      'Owens Corning Preferred Contractor #247226',
+      'Residential Roof Replacement & CRC R908 Bare-Deck Tear-Off',
+      'Concrete & Spanish Clay Tile Underlayment Relay (Lift and Reset)',
+      '24/7 Emergency Roof Leak Repair & FLIR Thermal Diagnostics',
+      'Solar Panel Detach and Reset',
+      'Commercial TPO, Modified Bitumen & Silicone Roof Coatings',
+      'California Title 24 Part 6 Cool Roof Compliance',
+    ],
+    ...buildAggregateAndReviews(stats, reviews),
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'San Diego County' },
+      ...SERVICE_AREAS.map((area) => ({
+        '@type': 'City',
+        name: area.name,
+      })),
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Roofing & Exterior Construction Services',
+      itemListElement: SERVICES.map((s) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: s.name,
+          description: s.shortDescription,
+          url: `${BASE_URL}/services/${s.slug}`,
+        },
+      })),
+    },
     priceRange: '$$',
     openingHours: 'Mo-Su 00:00-24:00',
     sameAs: [
@@ -134,6 +216,92 @@ export function buildLocalBusinessJsonLd(stats?: { totalCount: number; averageRa
   };
 }
 
+function buildWebsiteJsonLd() {
+  return {
+    '@type': 'WebSite',
+    '@id': WEBSITE_ID,
+    url: BASE_URL,
+    name: COMPANY_NAME,
+    inLanguage: 'en-US',
+    publisher: {
+      '@id': ORGANIZATION_ID,
+    },
+  };
+}
+
+export function buildOrganizationRef(
+  stats?: LocalBusinessStatsInput,
+  reviews?: LocalBusinessReviewInput[]
+) {
+  return {
+    '@id': ORGANIZATION_ID,
+    '@type': ['RoofingContractor', 'GeneralContractor'],
+    name: COMPANY_NAME,
+    url: BASE_URL,
+    image: `${BASE_URL}/og-image.jpg`,
+    telephone: '+17606221230',
+    priceRange: '$$',
+    address: BUSINESS_ADDRESS,
+    ...buildAggregateAndReviews(stats, reviews),
+  };
+}
+
+export function buildRootGraphJsonLd() {
+  const organizationNode: Record<string, unknown> = { ...buildLocalBusinessJsonLd() };
+  delete organizationNode['@context'];
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [organizationNode, buildWebsiteJsonLd()],
+  };
+}
+
+export function buildHomepageGraphJsonLd({
+  stats,
+  reviews,
+  faqs,
+}: {
+  stats?: LocalBusinessStatsInput;
+  reviews?: LocalBusinessReviewInput[];
+  faqs: { question: string; answer: string }[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      // Merges aggregateRating + review onto #organization defined in RootLayout without duplicating 32-city/16-service blank nodes
+      buildOrganizationRef(stats, reviews),
+      {
+        '@type': 'WebPage',
+        '@id': `${BASE_URL}/#webpage`,
+        url: `${BASE_URL}/`,
+        name: 'San Diego Roofing Contractor | Rise Up Roofing & Construction',
+        description:
+          'Licensed San Diego roofing contractor (#1096492). Roof replacement, tile underlayment relay, 24/7 leak repair & solar roofing. Instant 10-second ballpark.',
+        inLanguage: 'en-US',
+        isPartOf: { '@id': WEBSITE_ID },
+        about: { '@id': ORGANIZATION_ID },
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          url: `${BASE_URL}/og-image.jpg`,
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${BASE_URL}/#faq`,
+        isPartOf: { '@id': `${BASE_URL}/#webpage` },
+        about: { '@id': ORGANIZATION_ID },
+        mainEntity: faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      },
+    ],
+  };
+}
+
 export function buildServiceJsonLd(
   service: { name: string; shortDescription: string; slug: string },
   stats?: { totalCount: number; averageRating: number }
@@ -141,42 +309,16 @@ export function buildServiceJsonLd(
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
+    '@id': `${BASE_URL}/services/${service.slug}#service`,
     name: service.name,
     description: service.shortDescription,
     url: `${BASE_URL}/services/${service.slug}`,
-    provider: {
-      '@type': ['RoofingContractor', 'GeneralContractor'],
-      name: COMPANY_NAME,
-      url: BASE_URL,
-      telephone: '+17606221230',
-      address: BUSINESS_ADDRESS,
-      ...(stats && stats.totalCount > 0
-        ? {
-            aggregateRating: {
-              '@type': 'AggregateRating',
-              ratingValue: stats.averageRating.toFixed(1),
-              reviewCount: stats.totalCount,
-              bestRating: 5,
-              worstRating: 1,
-            },
-          }
-        : {}),
-    },
-    ...(stats && stats.totalCount > 0
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: stats.averageRating.toFixed(1),
-            reviewCount: stats.totalCount,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        }
-      : {}),
-    areaServed: {
-      '@type': 'County',
-      name: 'San Diego County',
-    },
+    provider: buildOrganizationRef(stats),
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'San Diego County' },
+      { '@type': 'City', name: 'Temecula' },
+      { '@type': 'City', name: 'Murrieta' },
+    ],
   };
 }
 
@@ -196,28 +338,9 @@ export function buildFAQJsonLd(faqs: { question: string; answer: string }[]) {
 }
 
 export function buildReviewJsonLd(reviews: { author: string; rating: number; text: string }[]) {
-  const avgRating = reviews.reduce((sum, r) => sum + r.rating, 0) / (reviews.length || 1);
   return {
     '@context': 'https://schema.org',
-    '@type': 'RoofingContractor',
-    name: COMPANY_NAME,
-    url: BASE_URL,
-    telephone: '+17606221230',
-    priceRange: '$$',
-    address: BUSINESS_ADDRESS,
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: avgRating.toFixed(1),
-      reviewCount: reviews.length,
-      bestRating: 5,
-      worstRating: 1,
-    },
-    review: reviews.map((r) => ({
-      '@type': 'Review',
-      author: { '@type': 'Person', name: r.author },
-      reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
-      reviewBody: r.text,
-    })),
+    ...buildOrganizationRef(undefined, reviews),
   };
 }
 
@@ -234,16 +357,18 @@ export function buildJobPostingJsonLd(job: {
     description: job.description,
     employmentType: job.employmentType.toUpperCase().replace('-', '_'),
     hiringOrganization: {
+      '@id': ORGANIZATION_ID,
       '@type': 'Organization',
       name: COMPANY_NAME,
       sameAs: BASE_URL,
+      logo: `${BASE_URL}/logo.svg`,
     },
     jobLocation: {
       '@type': 'Place',
       address: BUSINESS_ADDRESS,
     },
     url: `${BASE_URL}/careers/${job.slug}`,
-    datePosted: new Date().toISOString().split('T')[0],
+    datePosted: '2026-10-01',
   };
 }
 
@@ -269,22 +394,26 @@ export function buildTechArticleJsonLd({
     description,
     url,
     mainEntityOfPage: url,
-    datePublished: datePublished || '2024-01-15T08:00:00+08:00',
-    dateModified: dateModified || new Date().toISOString(),
+    datePublished: datePublished || '2025-01-15T08:00:00-08:00',
+    dateModified: dateModified || datePublished || '2026-10-02T08:00:00-07:00',
     author: {
-      '@type': 'RoofingContractor',
+      '@id': ORGANIZATION_ID,
+      '@type': ['RoofingContractor', 'GeneralContractor'],
       name: COMPANY_NAME,
       url: BASE_URL,
       address: BUSINESS_ADDRESS,
       telephone: '+17606221230',
     },
     publisher: {
+      '@id': ORGANIZATION_ID,
       '@type': 'Organization',
       name: COMPANY_NAME,
       url: BASE_URL,
       logo: {
         '@type': 'ImageObject',
-        url: `${BASE_URL}/og-image.jpg`,
+        url: `${BASE_URL}/logo.svg`,
+        width: 282,
+        height: 74,
       },
     },
     keywords: keywords || ['Roof Tear Off Process', 'Roof Removal', 'San Diego Roofing'],
@@ -300,13 +429,17 @@ export function buildProjectJsonLd(project: {
   afterImage: string;
   materialsUsed: string[];
 }) {
+  const imageUrl = project.afterImage.startsWith('http')
+    ? project.afterImage
+    : `${BASE_URL}${project.afterImage}`;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     name: project.title,
     headline: project.title,
     description: project.scopeOfWork,
-    image: project.afterImage,
+    image: imageUrl,
     url: `${BASE_URL}/projects/${project.slug}`,
     locationCreated: {
       '@type': 'Place',
@@ -319,10 +452,10 @@ export function buildProjectJsonLd(project: {
       },
     },
     author: {
-      '@type': 'RoofingContractor',
+      '@id': ORGANIZATION_ID,
+      '@type': ['RoofingContractor', 'GeneralContractor'],
       name: COMPANY_NAME,
       url: BASE_URL,
     },
   };
 }
-

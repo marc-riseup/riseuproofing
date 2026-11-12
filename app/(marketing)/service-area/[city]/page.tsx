@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/shared/Icon';
 import { getServiceAreaBySlug, getAllServiceAreaSlugs, getNearbyServiceAreas } from '@/lib/data/serviceAreas';
 import { services } from '@/lib/data/services';
-import { buildMetadata, buildFAQJsonLd } from '@/lib/seo/metadata';
+import { buildMetadata, buildFAQJsonLd, buildOrganizationRef, serializeJsonLd } from '@/lib/seo/metadata';
 import { Section } from '@/components/shared/Container';
 import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
 import { FAQAccordion } from '@/components/shared/FAQAccordion';
@@ -48,56 +48,15 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const faqJsonLd = faqs.length > 0 ? buildFAQJsonLd(faqs) : null;
   const cityJsonLd = {
     '@context': 'https://schema.org',
-    '@type': ['RoofingContractor', 'GeneralContractor'],
-    name: COMPANY_NAME,
+    '@type': 'Service',
+    '@id': `https://riseuprac.com/service-area/${area.slug}#service`,
+    name: `Roofing & Construction Services in ${area.name}, CA`,
     url: `https://riseuprac.com/service-area/${area.slug}`,
-    telephone: '+17606221230',
-    priceRange: '$$',
-    openingHours: 'Mo-Su 00:00-24:00',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: '2182 S El Camino Real',
-      addressLocality: 'Oceanside',
-      addressRegion: 'CA',
-      postalCode: '92054',
-      addressCountry: 'US',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 33.1812,
-      longitude: -117.3395,
-    },
-    ...(stats && stats.totalCount > 0
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: stats.averageRating.toFixed(1),
-            reviewCount: stats.totalCount,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        }
-      : {}),
+    provider: buildOrganizationRef(stats),
     areaServed: {
       '@type': 'City',
       name: area.name,
-      containedInPlace: {
-        '@type': 'State',
-        name: 'California',
-      },
-    },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: `Roofing & Construction Services in ${area.name}`,
-      itemListElement: services.map((s) => ({
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: s.name,
-          url: `https://riseuprac.com/services/${s.slug}`,
-          description: s.shortDescription,
-        },
-      })),
+      containedInPlace: { '@type': 'State', name: 'California' },
     },
   };
 
@@ -105,12 +64,12 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(cityJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(cityJsonLd) }}
       />
       {faqJsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd) }}
         />
       )}
 
@@ -144,7 +103,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             {area.intro || (
               <>
                 {COMPANY_NAME} is proud to serve homeowners and commercial property managers in {area.name}, {area.county} County. 
-                Whether you need a complete roof replacement, tile relay with 2-ply underlayment, emergency leak detection, or general construction repairs, our licensed team delivers master craftsmanship backed by 50-year manufacturer warranties.
+                Whether you need a complete roof replacement, tile relay with 2-ply underlayment, emergency leak detection, or general construction repairs, our licensed team delivers master craftsmanship backed by 25-year manufacturer warranties.
               </>
             )}
           </p>
